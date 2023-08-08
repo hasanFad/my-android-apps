@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">דנה העוזרת האישית</string>
+    <string name="newUser">משתמש חדש</string>
+    <string name="insertYourPassword">הכנס סיסמה שלך</string>
+    <string name="forgetPassword">שכחתי סיסמה</string>
+    <string name="enter">כניסה</string>
+    <string name="phoneNumber">מספר טלפון</string>
+    <string name="content">תוכן</string>
+    <string name="sendMessage">שלח הודעה</string>
+    <string name="assistantGreeting">בָּרוּךְ שׁוּבְךָ.</string>
+    <string name="assistantGreetingWithout">ברוך שובך.</string>
+    <string name="assistantName">קוֹרְאִים לִי דַּנָּה.</string>
+    <string name="assistantNameWithout">קוראים לי דנה.</string>
+    <string name="assistantDescription">אֲנִי הָעוֹזֶרֶת הָאִישִׁית שֶׁלְּךָ, אֲנִי יְכוֹלָה לַעֲשׂוֹת הֲמוֹן דְּבָרִים, לְמָשָׁל ,לְהִתְקַשֵּׁר , לִשְׁלֹחַ הוֹדָעָה, לְהַזְכִּירְךָ כֹּל דָּבָר ,אוֹ סְתָם רוֹצֶה לְדבר איתִי עַל  כֹּל נוֹשֵׂא שֶׁתִּרְצֶה.</string>
+    <string name="assistantDescriptionWithout">.אני העוזרת האישית שלך, אני יכולה לעשות המון דברים, למשל, להתקשר, לשלוח הודעה, להזכירך כל דבר, או סתם רוצה לדבר איתי על כל נושא שתרצה</string>
+    <string name="userWantSMS">אני רוצה לשלוח הודעה</string>
+    <string name="userWantTalk">אני רוצה לדבר על משהו</string>
+    <string name="userWantReminder">אני רוצה שתזכירי לי משהו</string>
+    <string name="connectNetwork">מחובר לאינטרנט</string>
+    <string name="disConnectNetwork">לא מחובר לאינטרנט</string>
+    <string name="oneOfBoxsEmpty">אחת התיבות ריקות!</string>
+    <string name="oneSecondICheckIt">שניה בודקת</string>
+    <string name="buildingScreen">המסך עדיין בבניה</string>
+    <string name="goToMessageScreen">בסדר, אני מעבירה למסך ההודעות</string>
+    <string name="goToTopicScreen">בסדר, אני מעבירה למסך הנושאים</string>
+    <string name="goToReminderScreen">בסדר, אני מעבירה למסך התזכורות</string>
+    <string name="goToAssistantDialerScreen">בסדר, אני מפעילה את הטלפון</string>
+    <string name="message">הודעה</string>
+    <string name="toSendMessage">"לשלוח הודעה "</string>
+    <string name="toSpeak">לדבר</string>
+    <string name="toReminderMe">תזכירי לי</string>
+    <string name="wantToDialer">רוצה להתקשר</string>
+    <string name="thisScreenForReminder">זהו מסך המטפל בתזכורות.</string>
+    <string name="needToKnowWhenReminderYou">אני צריכה קודם לדעת מתי להזכיר אותך</string>
+    <string name="howCanReminder">בִּשְׁבִיל לְהַזְכִּירְךָ אֲנִי צְרִיכָה לְהָבִין כַּמָּה נְתוּנִים.. קֹדֶם כֹּל מָתַי תַּאֲרִיךְ תִּזְכֹּרֶת.. אַחַר כָּךְ בְּאֵיזֶה שָׁעָה אַתָּה רוֹצֶה לְהַזְכִּירְךָ. אַחַר כָּךְ תֹּכֶן הַתִּזְכֹּרֶת. חָשׁוּב לְהַדְגִּישׁ אֶת הַמִּלִּים הַבָּאוֹת.. תַּאֲרִיךְ הַתִּזְכֹּרֶת.. בֵּינְתַיִם חָשׁוּב לְהַגִּיד תַּאֲרִיךְ..עַד שאֲנִי מִסְתַּדֶּרֶת עִם הַמִּלִּים הַיּוֹם מָחָר וְכַדּוֹמֶה..שְׁעַת תִּזְכֹּרֶת.. וְאָז אוֹמֵר שָׁעָה ..חָשׁוּב לְהָבִין..שלִפְנֵי 12 בַּצָּהֳרַיִם. זֶה עֲדָיִין בּוֹקֵר..אַחֲרֵי 12.. זֶה בָּעֶרֶב.. תֹּכֶן הַתִּזְכֹּרֶת.. וְאָז אוֹמֵר מָה שֶׁרוֹצֶה לְהַזְכִּיר לְךָ.</string>
+    <string name="exampleForReminder">הִנֵּה דֻּגְמָה לְתִזְכֹּרֶת: תַּזְכִּירִי לִי.. תַּאֲרִיךְ הַתִּזְכֹּרֶת יוֹם 25.. לְחֹדֶשׁ 7.. שָׁעָה 4. וְ 25 דַּקּוֹת. בָּעֶרֶב.. תֹּכֶן הַתִּזְכֹּרֶת.. אַל תִּשְׁכַּח לָלֶכֶת לְרוֹפֵא שִׁנַּיִם עוֹד שְׁעָתַיִם</string>
+    <string name="exampleForReminderWithout">הנה דוגמה לתזכורת: תזכירי לי. תאריך התזכורת יום 25 לחודש 7 שעה 4 ו 25 דקות בערב. תוכן התזכורת: אל תשכח ללכת לרופא שיניים עוד שעתיים.</string>
+    <string name="howCanReminderWithout">בשביל להזכירך אני צריכה להבין כמה נתונים. קודם כול מתי מועד תזכורת. אחר כך באיזה שעה אתה רוצה להזכירך. אחר כך תוכן התזכורת. חשוב להדגיש את המילים הבאות : מועד התזכורת , בינתיים חשוב להגיד תאריך עד אני מסתדרת עם המילים היום מחר וכדומה.. שעת תזכורת ואז אומיר שעה חשוב להבין לפני 12 בצהריים זה עדיין בוקר אחרי 12 זה בערב.. תוכן התזכורת ואז אומר מה שרוצה להזכיר לך.</string>
+    <string name="whatReminderDate">מַהוּ תַּאֲרִיךְ הַתִּזְכֹּרֶת?</string>
+    <string name="whatReminderDateWithout">מהו תאריך התזכורת?</string>
+    <string name="whatReminderTime">מַהוּ זְמַן הַתִּזְכֹּרֶת?</string>
+    <string name="whatReminderTimeWithout">מהו זמן התזכורת?</string>
+    <string name="whatReminderContentWithout">מה תוכן התזכורת?</string>
+    <string name="ok">אישור</string>
+    <string name="confirmTheData">לאשר את הנתונים</string>
+    <string name="insertYourName">הכנס שם שלך</string>
+    <string name="loginProblem">בעיה בכניסה</string>
+    <string name="register">הרשמה</string>
+    <string name="passwordLength6Char">הסיסמה לפחות באורך 6 אותיות</string>
+    <string name="thanksForRegister">"תודה שביצעת הרשמה "</string>
+    <string name="registerProblem">בעייה בהרשמה</string>
+    <string name="insertPhoneNumber">הכנס מספר טלפון</string>
+    <string name="problem">"יש בעיה "</string>
+    <string name="reminderSuccess">התזכורת נקלטה בהצלחה</string>
+    <string name="reminderDateSuccessfullyCaptured">תאריך התזכורת נקלט בהצלחה...</string>
+    <string name="reminderTimeSuccessfullyCaptured">זמן התזכורת נקלט בהצלחה..</string>
+    <string name="reminderContentSuccessfullyCaptured">תוכן התזכורת נקלט בהצלחה...</string>
+    <string name="thisFeildEmpty">תיבה זאת ריקה!</string>
+
+    <string-array name="userAsk">
+        <item>אני רוצה לשלוח הודעה</item>
+        <item>אני רוצה לדבר על משהו</item>
+        <item>אני רוצה שתזכירי לי משהו</item>
+        <item>אני רוצה להתקשר למישהו</item>
+
+    </string-array>
+
+    <string-array name="userWords">
+        <item>לשלוח הודעה</item>
+        <item>לדבר</item>
+        <item>תזכירי לי</item>
+        <item>רוצה להתקשר</item>
+
+    </string-array>
+
+
+    <string-array name="reminderAppResponse">
+        <item>איזה תאריך?</item>
+        <item>איזה שעה?</item>
+        <item>מהו התוכן?</item>
+    </string-array>
+    
+</resources>
+

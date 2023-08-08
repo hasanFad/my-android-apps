@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.login.Login1"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextUserName_login"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:textAlignment="textStart"
+        android:inputType="textEmailAddress"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:maxLines="1"
+        android:hint="@string/insertYourName" />
+
+    <EditText
+        android:id="@+id/editTextUserPassword_login"
+        android:layout_width="wrap_content"
+        android:textAlignment="textStart"
+        android:layout_height="48dp"
+        android:layout_below="@id/editTextUserName_login"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:maxLines="1"
+        android:hint="@string/insertYourPassword" />
+
+    <Button
+        android:id="@+id/buttonNewUser_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUserPassword_login"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:textSize="10sp"
+        android:text="@string/newUser"
+        android:textColor="@color/black"
+        />
+
+
+    <Button
+        android:id="@+id/buttonForgetPassword_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_alignBaseline="@id/buttonNewUser_login"
+        android:layout_toEndOf="@id/buttonNewUser_login"
+        android:background="@android:color/transparent"
+        android:text="@string/forgetPassword"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/buttonEnter_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/buttonNewUser_login"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/black"
+        android:text="@string/enter" />
+
+
+</RelativeLayout>

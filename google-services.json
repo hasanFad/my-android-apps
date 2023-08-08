@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "918153218358",
+    "project_id": "personal-assistant1",
+    "storage_bucket": "personal-assistant1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918153218358:android:0e3219d96a65bd5b1b4b97",
+        "android_client_info": {
+          "package_name": "com.shoesock.personalassistant1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918153218358-2vl23tdam9n9cm3uad22vni9jm937cel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSwWlipXXi37SkGIw3v4yG6mL_rsPYZUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918153218358-2vl23tdam9n9cm3uad22vni9jm937cel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

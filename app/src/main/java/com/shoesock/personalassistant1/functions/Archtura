@@ -1,0 +1,15 @@
+function msg checks if the user sent the message or the app in the operation
+msg(userMessage);
+after will addMessage(userMessage, true);
+this mean's that   isUserMessage "true".
+
+in this function get string assistantResponse will operation getResponseFromAppAssistant
+function to get the response from the app .
+after will addMessage(assistantResponse, false);
+this mean's that isUserMessage "false".
+
+ok here will get the assistant response and thus what i want.
+
+///////////////////
+
+the add message is check if isUserMessage true will set some gravity.
