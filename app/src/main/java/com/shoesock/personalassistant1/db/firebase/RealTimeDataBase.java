@@ -52,14 +52,11 @@ public class RealTimeDataBase {
     }
 
 
-
     public interface OnUserFetchListener {
         void onUserFetchSuccess(UserModel user);
 
         void onUserFetchFailure();
     }
-
-
 
 
     public void registerNewUser(UserModel userModel, OnListener listener) {
@@ -101,13 +98,11 @@ public class RealTimeDataBase {
     }
 
 
-
-
     public interface OnListener {
         void onSuccess();
+
         void onError(String errorMessage);
     } // close interface OnListener
-
 
 
 
