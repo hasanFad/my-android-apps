@@ -110,7 +110,6 @@ public class Login extends AppCompatActivity {
         String hashedUserName = PasswordUtils.hashString(userName, "");
 
         // Fetch the user by hashedUserName
-        // Fetch the user by hashedUserName
         realTimeDataBase.getUserByHashedUserName(userName, new RealTimeDataBase.OnUserFetchListener() {
             @Override
             public void onUserFetchSuccess(UserModel user) {
@@ -121,7 +120,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Password does not match, handle accordingly (e.g., display an error message)
-                    Toast.makeText(context, "Invalid username or password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.userOrPasswordNotOk), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -129,13 +128,14 @@ public class Login extends AppCompatActivity {
             public void onUserFetchFailure() {
                 // User not found, handle accordingly (e.g., display an error message)
                 Toast.makeText(context, "User not found.", Toast.LENGTH_SHORT).show();
+                userNameET.setError(getString(R.string.userNotExist));
             }
 
-            // hasanFad
 
-            // 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
+
 
         });
+
 
     } // close CheckingUserExists function
 
