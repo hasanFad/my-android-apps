@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
 
-
     private TTSFunctions ttsFunctions;
 
     @Override
@@ -60,12 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         classesInit(); // init the classes and the greetingSpeech
 
-        setPointer(); // will do all activity operation
 
     } // close the onCreate function
 
     private void classesInit() {
-
         sttFunctions = new STTFunctions(this); // init speech to text class
         chatUtils = new ChatUtils(context, MainActivity.this, chatContainer, scrollView); // init the chat helper class
         ttsFunctions = new TTSFunctions(MainActivity.this); // init the ttsFunction class
@@ -75,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         greetingSpeech = getString(R.string.assistantGreeting) + username+ "." + getString(R.string.assistantName) + getString(R.string.assistantDescription); // string to speech
         greetingMsg = getString(R.string.assistantGreetingWithout) + username +"." + getString(R.string.assistantNameWithout) + getString(R.string.assistantDescriptionWithout); // string to chat
+
+        setPointer(); // will do all activity operation
+
     } // close the classesInit class
 
     private void setPointer() {
