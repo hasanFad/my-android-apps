@@ -160,7 +160,8 @@ public class ChatUtils {
             addMessage(chatContainer, scrollView, userMessage, true); // Add user message
             messageEditText.setText("");
 
-            String assistantResponse = reminderUtils.checkReminderMessage(userMessage); // from the
+           // String assistantResponse = reminderUtils.checkReminderMessage(userMessage); // from the
+            String assistantResponse = getResponseForMainMenu(userMessage);
             addMessage(chatContainer, scrollView, assistantResponse, false); //
         }
 
