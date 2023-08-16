@@ -18,13 +18,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReminderUtils {
-    private Activity activity;
-  private final Context context;
-   private final ChatUtils chatUtils;
-    private  SharedPreferencesAssistant preferencesClass;
 
+
+    Activity activity;
+    Context context;
+    SharedPreferencesAssistant preferencesClass;
+
+    ChatUtils chatUtils;
      String REMINDER_PREFERENCES = "reminderPreferences";
 
+    public ReminderUtils(Context context1, Activity activity1, LinearLayout chatContainer, ScrollView scrollView) {
+
+        context = context1; // Update this line if needed
+        preferencesClass = new SharedPreferencesAssistant(context);
+        activity = activity1;
+    } // close the ReminderUtils function
 
     SharedPreferencesAssistant sharedPreferencesAssistant;
 
@@ -33,13 +41,6 @@ public class ReminderUtils {
 
     Functions functions = new Functions(activity);
 
-    public ReminderUtils(Context context, Activity activity, LinearLayout chatContainer, ScrollView scrollView) {
-
-        this.context = context; // Update this line if needed
-        preferencesClass = new SharedPreferencesAssistant(context);
-        this.activity = activity;
-         chatUtils = new ChatUtils(context, activity,chatContainer, scrollView);
-    } // close the ReminderUtils function
 
 
     public String checkReminderMessage(String  userMessage) {

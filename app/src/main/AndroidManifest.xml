@@ -35,7 +35,7 @@
         <activity android:name=".activities.dialer.AssistantDialer"  android:screenOrientation="portrait"/>
         <activity android:name=".activities.reminder.Reminder"  android:screenOrientation="portrait"/>
         <activity android:name=".activities.sms.SMSAssistant"  android:screenOrientation="portrait"/>
-        <activity android:name=".activities.login.Login1"  android:screenOrientation="portrait"/>
+        <activity android:name=".activities.login.Login" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.shoesock.personalassistant1.activities.MainActivity;
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.activities.login.Login;
 import com.shoesock.personalassistant1.functions.Functions;
-import com.shoesock.personalassistant1.activities.login.Login1;
 import com.shoesock.personalassistant1.functions.progress_bar.ProgressBarUtils;
 
 
@@ -76,7 +76,7 @@ public class SplashScreen extends Activity {
                 } else {
                     // User is not logged in
                     // Redirect to the login activity
-                    intent = new Intent(SplashScreen.this, Login1.class);
+                    intent = new Intent(SplashScreen.this, Login.class);
                 }
                 progressBarUtils.hideProgressBar();
                 startActivity(intent);

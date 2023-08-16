@@ -3,11 +3,7 @@ package com.shoesock.personalassistant1.models;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-
-
     private String userName, userHashedPassword, userPhone, slat, hashedUserName;
-
-
 
     public String getUserName() {
         return userName;
@@ -29,22 +25,18 @@ public class UserModel implements Serializable {
         return userPhone;
     }
 
-
-    public  UserModel( String userName,  String userHashedPassword, String userPhone){
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.userHashedPassword = userHashedPassword;
-
-   }
-
-   //    hashedUserName, saltPassword,userName, hashedPassword, phone);
-   public UserModel(String hashedUserName, String slat, String userName, String userHashedPassword, String userPhone){
+    public UserModel(String hashedUserName, String slat, String userHashedPassword, String userName, String userPhone) {
         this.userName = userName;
         this.userPhone = userPhone;
         this.userHashedPassword = userHashedPassword;
         this.slat = slat;
         this.hashedUserName = hashedUserName;
-   }
+    }
+
+    // Default constructor for Firebase deserialization
+    public UserModel() {
+        // Empty constructor required by Firebase
+    }
 
 
 

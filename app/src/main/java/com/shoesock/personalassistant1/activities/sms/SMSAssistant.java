@@ -24,9 +24,9 @@ public class SMSAssistant extends AppCompatActivity {
     private EditText messageEditText;
     private ImageButton sendButton, micButton;
     private ScrollView scrollView;
-   private Context context;
-   private STTFunctions sttFunctions;
-   private ChatUtils  chatUtils;
+    private Context context;
+    private STTFunctions sttFunctions;
+    private ChatUtils  chatUtils;
 
 
 

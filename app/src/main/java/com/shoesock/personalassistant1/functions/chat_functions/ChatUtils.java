@@ -30,25 +30,25 @@ import java.util.Objects;
 
 public class ChatUtils {
 
-    private Context context;
-    private Activity activity;
-    private LinearLayout chatContainer;
-    private ScrollView scrollView;
-    ReminderUtils reminderUtils;
+     Context context;
+     Activity activity;
+     LinearLayout chatContainer;
+     ScrollView scrollView;
+     ReminderUtils reminderUtils;
 
 
-    private TTSFunctions ttsFunctions;
+     TTSFunctions ttsFunctions;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
 
 
 
-    public ChatUtils (Context context, Activity activity, LinearLayout chatContainer, ScrollView scrollView){
-        this.context = context;
-        this.activity = activity;
+    public ChatUtils (Context context1, Activity activity1, LinearLayout chatContainer1, ScrollView scrollView1){
+        context = context1;
+        activity = activity1;
         ttsFunctions = new TTSFunctions(activity);
-        this.chatContainer = chatContainer;
-        this.scrollView = scrollView;
-         reminderUtils = new ReminderUtils(context, activity, chatContainer, scrollView);
+        chatContainer = chatContainer1;
+        scrollView = scrollView1;
+
     }
 
 

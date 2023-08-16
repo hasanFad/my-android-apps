@@ -56,6 +56,8 @@
     <string name="reminderTimeSuccessfullyCaptured">זמן התזכורת נקלט בהצלחה..</string>
     <string name="reminderContentSuccessfullyCaptured">תוכן התזכורת נקלט בהצלחה...</string>
     <string name="thisFeildEmpty">תיבה זאת ריקה!</string>
+    <string name="userNotExist">משתמש לא קיים</string>
+    <string name="passwordNotOk">סיסמה לא נכונה</string>
 
     <string-array name="userAsk">
         <item>אני רוצה לשלוח הודעה</item>

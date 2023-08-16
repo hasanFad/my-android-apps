@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText messageEditText;
     private ImageButton sendButton, micButton;
     private ScrollView scrollView;
-    private  ChatUtils chatUtils;
+    public   ChatUtils chatUtils;
     private String greetingSpeech, greetingMsg;
     private   STTFunctions sttFunctions;
     private   String username;
 
     private Context context;
 
-    private TTSFunctions ttsFunctions;
+     TTSFunctions ttsFunctions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

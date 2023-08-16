@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.activities.MainActivity;
 import com.shoesock.personalassistant1.activities.register.RegisterNewUser;
+import com.shoesock.personalassistant1.activities.splashScreen.SplashScreen;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.password_functions.PasswordUtils;
@@ -31,7 +33,7 @@ public class Login extends AppCompatActivity {
 
     private RealTimeDataBase realTimeDataBase;
     private Functions functions;
-    private SharedPreferencesAssistant preferences;
+    private SharedPreferencesAssistant preferencesAssistant;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class Login extends AppCompatActivity {
 
     private void classesInit() {
         realTimeDataBase = new RealTimeDataBase();
-        preferences = new SharedPreferencesAssistant(context);
+        preferencesAssistant = new SharedPreferencesAssistant(context);
         functions = new Functions(Login.this);
 
         setPointer();
@@ -110,7 +112,7 @@ public class Login extends AppCompatActivity {
         String hashedUserName = PasswordUtils.hashString(userName, "");
 
         // Fetch the user by hashedUserName
-        realTimeDataBase.getUserByHashedUserName(userName, new RealTimeDataBase.OnUserFetchListener() {
+        realTimeDataBase.getUserByHashedUserName(hashedUserName, new RealTimeDataBase.OnUserFetchListener() {
             @Override
             public void onUserFetchSuccess(UserModel user) {
                 // User found, verify the password
@@ -118,16 +120,22 @@ public class Login extends AppCompatActivity {
                 if (hashedPassword.equals(user.getUserHashedPassword())) {
                     // Password matches, login successful, handle accordingly (e.g., navigate to MainActivity)
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show();
+
+
+                    preferencesAssistant.saveSharedPreferences("loginPreferences","userName", userName);
+                   Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     // Password does not match, handle accordingly (e.g., display an error message)
-                    Toast.makeText(context, getString(R.string.userOrPasswordNotOk), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.passwordNotOk), Toast.LENGTH_SHORT).show();
+                    userPasswordET.setError(getString(R.string.passwordNotOk));
                 }
             }
 
             @Override
             public void onUserFetchFailure() {
                 // User not found, handle accordingly (e.g., display an error message)
-                Toast.makeText(context, "User not found.", Toast.LENGTH_SHORT).show();
                 userNameET.setError(getString(R.string.userNotExist));
             }
 
