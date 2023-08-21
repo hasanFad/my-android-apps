@@ -72,7 +72,7 @@ public class AssistantDialer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userMessage = messageEditText.getText().toString();
-                chatUtils.msg(messageEditText, userMessage);
+                chatUtils.msg("assistantDialer" ,messageEditText, userMessage);
             }
         });
 
@@ -82,7 +82,7 @@ public class AssistantDialer extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText);
+        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "assistantDialer");
 
     } // close onActivityResult function
 
