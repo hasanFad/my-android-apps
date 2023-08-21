@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.activities.MainActivity;
+import com.shoesock.personalassistant1.activities.forgetPassword.ForgetPassword;
 import com.shoesock.personalassistant1.activities.register.RegisterNewUser;
 import com.shoesock.personalassistant1.activities.splashScreen.SplashScreen;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
@@ -72,6 +73,14 @@ public class Login extends AppCompatActivity {
             }
         }); // close newUserBtn.setOnClickListener
 
+        forgetPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, ForgetPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

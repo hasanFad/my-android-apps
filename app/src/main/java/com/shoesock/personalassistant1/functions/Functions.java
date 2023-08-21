@@ -2,8 +2,11 @@ package com.shoesock.personalassistant1.functions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
@@ -14,12 +17,12 @@ public class Functions implements Serializable {
 
 
     private Activity activity;
+    ChatUtils chatUtils;
 
 
 
     public Functions (Activity activity){
         this.activity = activity;
-
     }
 
     public void ToastFunction(Context context, String textToToast){
@@ -43,6 +46,7 @@ public class Functions implements Serializable {
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }
+
 
 
 

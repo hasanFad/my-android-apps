@@ -31,7 +31,7 @@ public class SharedPreferencesAssistant {
     public void removeReminderFromShared() {
         // the keys is: reminderDatePreferences / reminderDatePreferences / reminderContentPreferences
         removeShared(REMINDER_PREFERENCES, "reminderDatePreferences");
-        removeShared(REMINDER_PREFERENCES, "reminderDatePreferences");
+        removeShared(REMINDER_PREFERENCES, "reminderTimePreferences");
         removeShared(REMINDER_PREFERENCES, "reminderContentPreferences");
     } // close removeReminderFromShared function
 

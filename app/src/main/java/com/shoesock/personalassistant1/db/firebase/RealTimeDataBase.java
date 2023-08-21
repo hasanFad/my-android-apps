@@ -84,7 +84,10 @@ public class RealTimeDataBase {
         databaseUsersReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                databaseUsersReference.child(reminderModel.userName).setValue(reminderModel);
+              //  databaseUsersReference.child(reminderModel.userName).setValue(reminderModel);
+                String reminderKey = databaseUsersReference.child(reminderModel.userName).push().getKey();
+                databaseUsersReference.child(reminderModel.userName).child(reminderKey).setValue(reminderModel);
+
                 listener.onSuccess();
             }
 

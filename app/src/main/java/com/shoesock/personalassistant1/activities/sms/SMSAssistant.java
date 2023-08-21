@@ -86,7 +86,7 @@ public class SMSAssistant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userMessage = messageEditText.getText().toString();
-                chatUtils.msg(messageEditText, userMessage);
+                chatUtils.msg("smsActivity" ,messageEditText, userMessage);
             }
         });
 
@@ -96,7 +96,7 @@ public class SMSAssistant extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText);
+        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "smsActivity");
 
     } // close the onActivityResult function
 

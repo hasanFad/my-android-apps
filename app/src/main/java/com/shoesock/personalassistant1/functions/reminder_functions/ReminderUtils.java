@@ -3,6 +3,7 @@ package com.shoesock.personalassistant1.functions.reminder_functions;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -13,6 +14,7 @@ import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
+import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +26,6 @@ public class ReminderUtils {
     Context context;
     SharedPreferencesAssistant preferencesClass;
 
-    ChatUtils chatUtils;
      String REMINDER_PREFERENCES = "reminderPreferences";
 
     public ReminderUtils(Context context1, Activity activity1, LinearLayout chatContainer, ScrollView scrollView) {
@@ -34,7 +35,7 @@ public class ReminderUtils {
         activity = activity1;
     } // close the ReminderUtils function
 
-    SharedPreferencesAssistant sharedPreferencesAssistant;
+
 
 
     RealTimeDataBase realTimeDataBase = new RealTimeDataBase();
@@ -43,7 +44,7 @@ public class ReminderUtils {
 
 
 
-    public String checkReminderMessage(String  userMessage) {
+    public  String checkReminderMessage(String userMessage) {
         // this function to check if user want to reminder and his response is date or ti=ime or content
 
         String returnAppMessage = ""; // this string to return it.
@@ -51,14 +52,14 @@ public class ReminderUtils {
         if (functions.isValidDate(userMessage)){ // user message is date
             // it is date
             preferencesClass.saveSharedPreferences(REMINDER_PREFERENCES, "reminderDatePreferences", userMessage);
-
+            functions.ToastFunction(context, userMessage);
             returnAppMessage = context.getString(R.string.reminderDateSuccessfullyCaptured) + " " + context.getString(R.string.whatReminderTimeWithout);
 
 
         }else if (functions.isValidTime(userMessage)){ // user message is time
 
             preferencesClass.saveSharedPreferences(REMINDER_PREFERENCES, "reminderTimePreferences", userMessage);
-
+            functions.ToastFunction(context, userMessage);
 
             returnAppMessage = context.getString(R.string.reminderTimeSuccessfullyCaptured) + context.getString(R.string.whatReminderContentWithout);
         } else  {
@@ -76,6 +77,7 @@ public class ReminderUtils {
                     // (String userName, Date reminderDate, Date reminderTime, String reminderContent){
                     try {
                         insertDataToModel(sUsername, shredDate, sharedTime, userMessage);
+
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
@@ -96,27 +98,19 @@ public class ReminderUtils {
 
     }
 
+                        //
+    private void insertDataToModel(String sUsername, String date, String time, String content) throws ParseException {
 
-    private void insertDataToModel(String sUsername, String sGetDate, String sGetTime, String sGetContent) throws ParseException {
-        Date reminderDateForModel = null;
-        Date reminderTimeForModel = null;
-        String reminderContentForModel;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        // Extract reminder time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            reminderDateForModel = dateFormat.parse(sGetDate);
-            reminderTimeForModel = timeFormat.parse(sGetTime);
-            reminderContentForModel = sGetContent;
 
-            sharedPreferencesAssistant = new SharedPreferencesAssistant(context);
 
-            ReminderModel reminderModel = new ReminderModel(sUsername, reminderDateForModel, reminderTimeForModel, reminderContentForModel);
+            ReminderModel reminderModel = new ReminderModel(sUsername, date, time, content);
 
             realTimeDataBase.insertReminderToDB(reminderModel, new RealTimeDataBase.OnListener() {
                 @Override
                 public void onSuccess() {
-                    sharedPreferencesAssistant.removeReminderFromShared();
+                    preferencesClass.removeReminderFromShared();
                     functions.ToastFunction(context, activity.getString(R.string.reminderSuccess));
+
 
                 }
 
@@ -128,7 +122,7 @@ public class ReminderUtils {
             });
 
 
-    }
+    } // close the insertDataToModel function
 
 
 } // close ReminderUtils class

@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public   ChatUtils chatUtils;
     private String greetingSpeech, greetingMsg;
     private   STTFunctions sttFunctions;
+    Functions functions;
     private   String username;
 
     private Context context;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     } // close the onCreate function
 
     private void classesInit() {
+        functions = new Functions(MainActivity.this);
         sttFunctions = new STTFunctions(this); // init speech to text class
         chatUtils = new ChatUtils(context, MainActivity.this, chatContainer, scrollView); // init the chat helper class
         ttsFunctions = new TTSFunctions(MainActivity.this); // init the ttsFunction class
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userMessage = messageEditText.getText().toString();
-                chatUtils.msg(messageEditText, userMessage);
+                chatUtils.msg("mainActivity" ,messageEditText, userMessage);
 
             }
         });
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText);
+        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "mainActivity");
 
     } // close onActivityResult function
 

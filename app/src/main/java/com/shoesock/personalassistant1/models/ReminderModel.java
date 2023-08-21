@@ -7,9 +7,9 @@ public class ReminderModel implements Serializable {
 
     //
 
-    public Date reminderTime;
-    public Date reminderDate;
-    public String reminderContent, reminderRepeatFrequency, userName,  sDate,  sTime,  sContent;
+
+
+    public String reminderContent, reminderRepeatFrequency, userName,  reminderDate,  reminderTime;
 
     public String getReminderRepeatFrequency() {
         return reminderRepeatFrequency;
@@ -20,32 +20,24 @@ public class ReminderModel implements Serializable {
     }
 
 
-    public Date getReminderTime() {
-        return reminderTime;
-    }
-
-    public Date getReminderDate() {
-        return reminderDate;
-    }
 
     public String getUserName() {
         return userName;
     }
 
-    public ReminderModel(Date reminderDate, Date reminderTime, String reminderContent){
+    public ReminderModel(){
+
+    }
+
+
+    public ReminderModel(String reminderDate, String reminderTime, String reminderContent){
+        this.reminderContent = reminderContent;
         this.reminderDate = reminderDate;
         this.reminderTime = reminderTime;
-        this.reminderContent =  reminderContent;
-    }
-
-    public ReminderModel(String sDate, String sTime, String sContent){
-        this.sContent = sContent;
-        this.sDate = sDate;
-        this.sTime = sTime;
 
     }
 
-    public ReminderModel(String userName, Date reminderDate, Date reminderTime, String reminderContent){
+    public ReminderModel(String userName, String reminderDate, String reminderTime, String reminderContent){
         this.reminderDate = reminderDate;
         this.reminderTime = reminderTime;
        this.reminderContent =  reminderContent;

@@ -125,7 +125,7 @@ public class Reminder extends AppCompatActivity {
             public void run() {
                 chatUtils.addMessage(chatContainer, scrollView,getString(R.string.whatReminderDateWithout), false);
                 ttsFunctions.speak(getString(R.string.whatReminderDate));
-                messageEditText.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
+               // messageEditText.setInputType(InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE);
 
             }
         }, secondsDelayed * 60000);
@@ -147,7 +147,7 @@ public class Reminder extends AppCompatActivity {
             public void onClick(View view) {
                 // get string the user clicked it and check it
                 userMessage = messageEditText.getText().toString();
-                chatUtils.msg(messageEditText, userMessage);
+                chatUtils.msg("reminderActivity", messageEditText, userMessage);
 
             }
         }); // close the sendButton.setOnClickListener function
@@ -157,7 +157,7 @@ public class Reminder extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText);
+        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "reminderActivity");
 
     } // close onActivityResult function
 
