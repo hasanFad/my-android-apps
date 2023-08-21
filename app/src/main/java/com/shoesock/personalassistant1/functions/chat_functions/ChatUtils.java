@@ -34,9 +34,8 @@ public class ChatUtils {
      Activity activity;
      LinearLayout chatContainer;
      ScrollView scrollView;
-     ReminderUtils reminderUtils;
 
-
+    ReminderUtils reminderUtils;
      TTSFunctions ttsFunctions;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
 
@@ -48,6 +47,7 @@ public class ChatUtils {
         ttsFunctions = new TTSFunctions(activity);
         chatContainer = chatContainer1;
         scrollView = scrollView1;
+        reminderUtils = new ReminderUtils(context1, activity1, chatContainer, scrollView1);
 
     }
 
@@ -75,6 +75,9 @@ public class ChatUtils {
 
         return stringForUserUI;
     }
+
+
+
 
     public String getResponseForMainMenu(String userMessage) {     // this function to check if the user want the main menu
 
@@ -155,13 +158,32 @@ public class ChatUtils {
     } // close the getResponseForMainMenu function
 
 
-    public void msg(EditText messageEditText, String userMessage){
+    // i have some notes in the notebook מחברת
+
+    public void msg(String witchActivity,EditText messageEditText, String userMessage){
+
         if (!userMessage.isEmpty()) {
+            String assistantResponse = "";
+                switch (witchActivity){
+                    case "mainActivity":
+                        assistantResponse = getResponseForMainMenu(userMessage);
+                        break;
+                    case "reminderActivity":
+                        assistantResponse = reminderUtils.checkReminderMessage(userMessage);
+                        break;
+                    case "smsActivity":
+                        assistantResponse = "smsActivity";
+                        break;
+                    case "assistantDialer":
+                        assistantResponse = "assistantDialer";
+                        break;
+
+                } // close the switch
+
             addMessage(chatContainer, scrollView, userMessage, true); // Add user message
             messageEditText.setText("");
 
-           // String assistantResponse = reminderUtils.checkReminderMessage(userMessage); // from the
-            String assistantResponse = getResponseForMainMenu(userMessage);
+            ttsFunctions.speak(assistantResponse);
             addMessage(chatContainer, scrollView, assistantResponse, false); //
         }
 
@@ -193,13 +215,13 @@ public class ChatUtils {
     } // close the addMessage function
 
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data,  EditText messageEditText) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data,  EditText messageEditText,  String witchActivity) {
         if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
             if (resultCode == RESULT_OK && data != null) {
                 ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 messageEditText.setText(Objects.requireNonNull(result).get(0));
                 String s = Objects.requireNonNull(result).get(0);
-                msg(messageEditText,s); // to add the message to the chat and
+                msg(witchActivity,messageEditText,s); // to add the message to the chat and
             }
         }
     } // close the onActivityResult function
