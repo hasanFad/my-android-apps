@@ -18,15 +18,7 @@ set all params at Reminder and sms activities.
 ------------
 
 
-1) check the login layout and class  technically is ok will check with params.
-2) will set new class for splash screen get all first information and check the shared preference to check
-if the user have login, will go to main activity, or not will go to login activity+layout.
-3) after login the first time will say with (tts) the greeting and meeting, then will ask the user what he want.
-4) all the layouts are not finally, just the login layout is good.
-5) will add all activities and connect to the layout.
-6) will add the text to speech (tts).
-7) will add the speech to text (stt).
-8) will add 6 + 7 to all activities. and save the bundles.
+
 9) add the sms sender (from the code) will get to the user to edit the sms before sending if he want.
 10) will add to the user set voices to reminder/topics/sms saved/ send.
 11) maybe add the chatGPT to the assistant ?

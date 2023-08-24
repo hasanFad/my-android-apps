@@ -7,10 +7,5 @@
 
 
 PROBLEMS:
-1) the voice i have is speak hebrew but i want to set speak to the user male or female.
-- it's ok, i changed the name of the app for (דנה העוזרת האישית). its (dana the personal assistant). for that
-i want the voice is for female!!
 
-2) at MainActivity at line 108:"chatUtils.msg(messageEditText, userMessage);"
-i want to check what the user want
 

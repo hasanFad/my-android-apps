@@ -1,23 +1,18 @@
-package com.shoesock.personalassistant1.functions.reminder_functions;
+package com.shoesock.personalassistant1.functions.reminder_utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
-import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
-import java.io.Console;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ReminderUtils {
 
@@ -45,7 +40,7 @@ public class ReminderUtils {
 
 
     public  String checkReminderMessage(String userMessage) {
-        // this function to check if user want to reminder and his response is date or ti=ime or content
+        // this function to check if user want to reminder and his response is date or time or content
 
         String returnAppMessage = ""; // this string to return it.
 

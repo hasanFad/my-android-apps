@@ -1,4 +1,4 @@
-package com.shoesock.personalassistant1.functions.chat_functions;
+package com.shoesock.personalassistant1.functions.chat_utils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -18,11 +18,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.shoesock.personalassistant1.R;
-import com.shoesock.personalassistant1.activities.dialer.AssistantDialer;
+import com.shoesock.personalassistant1.activities.caller.Caller;
 import com.shoesock.personalassistant1.activities.reminder.Reminder;
 import com.shoesock.personalassistant1.activities.sms.SMSAssistant;
 import com.shoesock.personalassistant1.activities.topics.Topics;
-import com.shoesock.personalassistant1.functions.reminder_functions.ReminderUtils;
+import com.shoesock.personalassistant1.functions.caller_utils.CallerUtils;
+import com.shoesock.personalassistant1.functions.reminder_utils.ReminderUtils;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
 
 import java.util.ArrayList;
@@ -37,18 +38,19 @@ public class ChatUtils {
 
     ReminderUtils reminderUtils;
      TTSFunctions ttsFunctions;
+     CallerUtils callerUtils;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
 
 
 
-    public ChatUtils (Context context1, Activity activity1, LinearLayout chatContainer1, ScrollView scrollView1){
+    public ChatUtils (Context context1, Activity activity1, LinearLayout chatContainer1, ScrollView scrollView1, EditText messageEditText){
         context = context1;
         activity = activity1;
         ttsFunctions = new TTSFunctions(activity);
         chatContainer = chatContainer1;
         scrollView = scrollView1;
         reminderUtils = new ReminderUtils(context1, activity1, chatContainer, scrollView1);
-
+        callerUtils = new CallerUtils(context1, activity1, messageEditText);
     }
 
 
@@ -142,7 +144,7 @@ public class ChatUtils {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        intent[0] = new Intent(context, AssistantDialer.class);
+                        intent[0] = new Intent(context, Caller.class);
                         context.startActivity(intent[0]);
                     }
                 }, secondsDelayed * 4000);
@@ -171,13 +173,15 @@ public class ChatUtils {
                     case "reminderActivity":
                         assistantResponse = reminderUtils.checkReminderMessage(userMessage);
                         break;
+                    case "callerActivity":
+                        assistantResponse = callerUtils.checkCallerMessage(userMessage);
+                        break;
                     case "smsActivity":
                         assistantResponse = "smsActivity";
                         break;
-                    case "assistantDialer":
-                        assistantResponse = "assistantDialer";
+                    case "topicsActivity":
+                        assistantResponse = "topicsActivity";
                         break;
-
                 } // close the switch
 
             addMessage(chatContainer, scrollView, userMessage, true); // Add user message

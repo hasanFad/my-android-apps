@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.functions.Functions;
-import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
+import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private void classesInit() {
         functions = new Functions(MainActivity.this);
         sttFunctions = new STTFunctions(this); // init speech to text class
-        chatUtils = new ChatUtils(context, MainActivity.this, chatContainer, scrollView); // init the chat helper class
+        chatUtils = new ChatUtils(context, MainActivity.this, chatContainer, scrollView, messageEditText); // init the chat helper class
         ttsFunctions = new TTSFunctions(MainActivity.this); // init the ttsFunction class
                 // set the username at shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);

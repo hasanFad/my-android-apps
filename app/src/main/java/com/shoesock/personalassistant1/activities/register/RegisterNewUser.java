@@ -14,7 +14,7 @@ import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.activities.MainActivity;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
-import com.shoesock.personalassistant1.functions.password_functions.PasswordUtils;
+import com.shoesock.personalassistant1.functions.password_utils.PasswordUtils;
 import com.shoesock.personalassistant1.models.UserModel;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 

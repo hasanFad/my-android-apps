@@ -1,4 +1,4 @@
-package com.shoesock.personalassistant1.functions.password_functions;
+package com.shoesock.personalassistant1.functions.password_utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

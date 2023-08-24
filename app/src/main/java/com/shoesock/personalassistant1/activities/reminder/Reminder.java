@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,14 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
-import com.shoesock.personalassistant1.functions.Functions;
-import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
-import com.shoesock.personalassistant1.functions.reminder_functions.ReminderUtils;
+import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
-
-import java.util.Date;
 
 public class Reminder extends AppCompatActivity {
 
@@ -68,7 +63,7 @@ public class Reminder extends AppCompatActivity {
     private void classesInit() {
         checkReminderInBundle();
         Context context = this;
-        chatUtils = new ChatUtils(context, Reminder.this, chatContainer, scrollView); // Pass "this" (Activity)
+        chatUtils = new ChatUtils(context, Reminder.this, chatContainer, scrollView, messageEditText); // Pass "this" (Activity)
         sttFunctions = new STTFunctions(Reminder.this);
         ttsFunctions = new TTSFunctions(Reminder.this);
         reminderModel = null;

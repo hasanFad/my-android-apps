@@ -24,7 +24,7 @@
     <string name="goToMessageScreen">בסדר, אני מעבירה למסך ההודעות</string>
     <string name="goToTopicScreen">בסדר, אני מעבירה למסך הנושאים</string>
     <string name="goToReminderScreen">בסדר, אני מעבירה למסך התזכורות</string>
-    <string name="goToAssistantDialerScreen">בסדר, אני מפעילה את הטלפון</string>
+    <string name="goToAssistantDialerScreen">בסדר, אני מעבירה למסך המתאים</string>
     <string name="message">הודעה</string>
     <string name="toSendMessage">"לשלוח הודעה "</string>
     <string name="toSpeak">לדבר</string>
@@ -58,6 +58,8 @@
     <string name="thisFeildEmpty">תיבה זאת ריקה!</string>
     <string name="userNotExist">משתמש לא קיים</string>
     <string name="passwordNotOk">סיסמה לא נכונה</string>
+    <string name="screenToCall">זה המסך בשביל להתקשר</string>
+    <string name="howToCall">בשביל להתקשר, תגיד להתקשר לאיש קשר. או. להתקשר למספר חדש</string>
 
     <string-array name="userAsk">
         <item>אני רוצה לשלוח הודעה</item>

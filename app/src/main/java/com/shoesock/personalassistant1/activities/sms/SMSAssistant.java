@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
-import com.shoesock.personalassistant1.functions.chat_functions.ChatUtils;
+import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 
 public class SMSAssistant extends AppCompatActivity {
@@ -54,7 +54,7 @@ public class SMSAssistant extends AppCompatActivity {
 
     private void classesInit() {
          sttFunctions = new STTFunctions(SMSAssistant.this);
-        chatUtils = new ChatUtils(context, SMSAssistant.this, chatContainer, scrollView); // init the chat helper class
+        chatUtils = new ChatUtils(context, SMSAssistant.this, chatContainer, scrollView, messageEditText); // init the chat helper class
 
          setPointer();
     }
@@ -66,7 +66,7 @@ public class SMSAssistant extends AppCompatActivity {
             @Override
             public void run() {
 
-                chatUtils.addMessage(chatContainer,scrollView,"אני צריכה קודם את מספר הטלפון", false);
+                chatUtils.addMessage(chatContainer,scrollView,"אני צריכה קודם את מספר הטלפון, בשביל זה תגיד אם רוצה לשלוח הודעה לאיש קשר קיים או למספר חדש", false);
 
             }
         }, secondsDelayed * 3000);
