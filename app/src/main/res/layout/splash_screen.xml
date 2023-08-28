@@ -19,11 +19,6 @@
         android:layout_below="@id/video_splashScreen"/>
 
 
-    <include layout="@layout/progress_bar"
-        android:layout_below="@id/textViewStatus_splashScreen"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_centerVertical="true"/>
 
 
 </RelativeLayout>

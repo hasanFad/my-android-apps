@@ -1,10 +1,14 @@
 package com.shoesock.personalassistant1.functions;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Patterns;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.shoesock.personalassistant1.activities.caller.Caller;
 import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 
 import java.io.Serializable;
@@ -26,13 +31,13 @@ import java.util.regex.Pattern;
 
 public class Functions implements Serializable {
 
-
-
     private Activity activity;
-
-
-
     private static final int PICK_CONTACT_REQUEST = 1;
+    private static final int PERMISSION_REQUEST_READ_CONTACTS = 1;
+    private static final int PERMISSION_REQUEST_CALL_PHONE = 1;
+    private static final int PERMISSION_REQUEST_RECORD_AUDIO = 1;
+    private static final int PERMISSION_REQUEST_INTERNET = 1;
+
 
     public Functions (Activity activity){
         this.activity = activity;
@@ -42,7 +47,6 @@ public class Functions implements Serializable {
 
         Toast.makeText(context, textToToast, Toast.LENGTH_SHORT).show();
     } // close the ToastFunction function
-
 
     // Check if the input string matches the "dd\\mm" date format
     public boolean isValidDate(String input) {
@@ -60,10 +64,10 @@ public class Functions implements Serializable {
         return matcher.matches();
     } // close isValidTime function
 
-    public boolean isValidPhoneNumber(String phoneNumber) {
+    public boolean isValidPhoneNumber(String userMessage) {
+        String phoneNumber = userMessage.replace(" ","");
         return Patterns.PHONE.matcher(phoneNumber).matches() && phoneNumber.length() == 10;
     } // close isValidPhoneNumber function
-
 
     // Validate and save reminder
     public void validateAndSaveReminder(String sGetDate, String sGetTime, String sGetContent) {
@@ -96,9 +100,8 @@ public class Functions implements Serializable {
         }
     } // close validateAndSaveReminder function
 
-
     public String callContactsNameIfExists(String userMessage){
-            String returnIfNotExist = "";
+            String returnResponse = "";
         Cursor cursor = activity.getContentResolver().query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null,
@@ -115,23 +118,22 @@ public class Functions implements Serializable {
                 String phoneNumberToCall = "tel:" + phoneNumber;
                 Intent dialIntent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumberToCall));
                 activity.startActivity(dialIntent);
+                returnResponse = "הפעלתי טלפון";
             }
+
         } else {
             // Name not found, perform TTS and open contacts
-           returnIfNotExist = "השם לא נמצא, פותח אנשי קשר";
+            returnResponse = "השם לא נמצא, פתחתי אנשי קשר";
             openContacts();
         }
 
-        return returnIfNotExist;
+        return returnResponse;
     } // close callContactsNameIfExists function
-
-
 
     public void openContacts(){
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         activity.startActivityForResult(intent, PICK_CONTACT_REQUEST);
     } // close openContacts function
-
 
     public void callPhoneNumber(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_CALL);
@@ -145,9 +147,42 @@ public class Functions implements Serializable {
 
 
 
+    public void checkCallPermissions(Context context) {
+        // Check and request permissions
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
+        }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_REQUEST_CALL_PHONE);
+        }
+
+    } // close checkCallPermissions function
+
+    public void checkAllPermissionsNeeded(Context context){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
+        }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_REQUEST_CALL_PHONE);
+        }
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.INTERNET}, PERMISSION_REQUEST_INTERNET);
+        }
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_REQUEST_RECORD_AUDIO);
+        }
 
 
 
+    } // close checkAllPermissionsNeeded function
 
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
         } // close the Functions class

@@ -3,7 +3,7 @@ package com.shoesock.personalassistant1.models;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-    private String userName, userHashedPassword, userPhone, slat, hashedUserName;
+    private String userName, userLastName, userHashedPassword, userPhone, slat, hashedUserName;
 
     public String getUserName() {
         return userName;
@@ -21,13 +21,18 @@ public class UserModel implements Serializable {
         return slat;
     }
 
+    public String getUserLastName() {
+        return userLastName;
+    }
+
     public String getUserPhone() {
         return userPhone;
     }
 
-    public UserModel(String hashedUserName, String slat, String userHashedPassword, String userName, String userPhone) {
+    public UserModel(String hashedUserName, String slat, String userHashedPassword, String userName, String userLastName,String userPhone) {
         this.userName = userName;
         this.userPhone = userPhone;
+        this.userLastName = userLastName;
         this.userHashedPassword = userHashedPassword;
         this.slat = slat;
         this.hashedUserName = hashedUserName;

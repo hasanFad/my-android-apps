@@ -15,8 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.activities.MainActivity;
 import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
+import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
 
 public class SMSAssistant extends AppCompatActivity {
 
@@ -27,6 +29,7 @@ public class SMSAssistant extends AppCompatActivity {
     private Context context;
     private STTFunctions sttFunctions;
     private ChatUtils  chatUtils;
+    TTSFunctions ttsFunctions;
 
 
 
@@ -55,6 +58,7 @@ public class SMSAssistant extends AppCompatActivity {
     private void classesInit() {
          sttFunctions = new STTFunctions(SMSAssistant.this);
         chatUtils = new ChatUtils(context, SMSAssistant.this, chatContainer, scrollView, messageEditText); // init the chat helper class
+        ttsFunctions = new TTSFunctions(SMSAssistant.this); // init the ttsFunction class
 
          setPointer();
     }
@@ -66,7 +70,9 @@ public class SMSAssistant extends AppCompatActivity {
             @Override
             public void run() {
 
-                chatUtils.addMessage(chatContainer,scrollView,"אני צריכה קודם את מספר הטלפון, בשביל זה תגיד אם רוצה לשלוח הודעה לאיש קשר קיים או למספר חדש", false);
+                ttsFunctions.speak(getString(R.string.wantToSendWhatsAppOrSMS)); // speak function
+
+                chatUtils.addMessage(chatContainer,scrollView,getString(R.string.wantToSendWhatsAppOrSMS), false);
 
             }
         }, secondsDelayed * 3000);
@@ -86,6 +92,7 @@ public class SMSAssistant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userMessage = messageEditText.getText().toString();
+
                 chatUtils.msg("smsActivity" ,messageEditText, userMessage);
             }
         });

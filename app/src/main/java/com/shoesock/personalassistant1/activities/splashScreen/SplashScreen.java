@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 import androidx.annotation.Nullable;
 
@@ -27,8 +28,6 @@ public class SplashScreen extends Activity {
     Context context;
     TextView tv;
 
-    private ProgressBarUtils progressBarUtils;
-
     Functions functions = new Functions(SplashScreen.this);
 
 
@@ -40,28 +39,26 @@ public class SplashScreen extends Activity {
         context = this;
 
         tv = findViewById(R.id.textViewStatus_splashScreen);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBarUtils = new ProgressBarUtils(progressBar);
-        progressBarUtils.showProgressBar();
+
         // playing the video logo
         videoView = findViewById(R.id.video_splashScreen);
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName()+ "/" + R.raw.gohi)); // the URL of the local video
         videoView.requestFocus();
         videoView.start();
 
-        boolean internetCon = isNetworkAvailable();
+        boolean internetCon = functions.isNetworkAvailable();
         if (internetCon == false) {
             functions.ToastFunction(context, String.valueOf(getText(R.string.disConnectNetwork)));
 
-            tv.setText(R.string.disConnectNetwork);
-        }else {
-            tv.setText(R.string.connectNetwork);
+            Toast.makeText(context, R.string.disConnectNetwork, Toast.LENGTH_SHORT).show();
         }
 
 
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
+
+                functions.checkAllPermissionsNeeded(context);
 
                 SharedPreferences sharedPreferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("userName", null);
@@ -78,7 +75,6 @@ public class SplashScreen extends Activity {
                     // Redirect to the login activity
                     intent = new Intent(SplashScreen.this, Login.class);
                 }
-                progressBarUtils.hideProgressBar();
                 startActivity(intent);
                 finish();
 
@@ -88,12 +84,7 @@ public class SplashScreen extends Activity {
 
     } // close the onCreate function
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 
 
 } // close the SplashScreen class

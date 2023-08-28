@@ -20,7 +20,7 @@ import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssis
 
 public class RegisterNewUser extends AppCompatActivity {
 
-    private EditText editTextUserName, editTextPassword, editTextPhone;
+    private EditText editTextUserName, editTextLastName, editTextPassword, editTextPhone;
     private Button btnRegister;
     Context context;
     Functions functions ;
@@ -40,6 +40,7 @@ public class RegisterNewUser extends AppCompatActivity {
 
     private void setIds() {
         editTextUserName = findViewById(R.id.editTextUsername_register);
+        editTextLastName = findViewById(R.id.editTextUserLastName_register);
         editTextPassword = findViewById(R.id.editTextPassword_register);
         editTextPhone = findViewById(R.id.editTextPhoneNumber_register);
         btnRegister = findViewById(R.id.buttonRegister_register);
@@ -57,11 +58,16 @@ public class RegisterNewUser extends AppCompatActivity {
 
     private void checkTheNewUserData() {
         String userName = editTextUserName.getText().toString().trim();
+        String userLastName = editTextLastName.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName)) {
             editTextUserName.setError(getString(R.string.insertYourName));
+            return;
+        }
+        if (TextUtils.isEmpty(userLastName)){
+            editTextLastName.setError(getString(R.string.insertLastName));
             return;
         }
 
@@ -88,7 +94,7 @@ public class RegisterNewUser extends AppCompatActivity {
         String hashedPassword = PasswordUtils.hashString(password, saltPassword);
         String hashedUserName = PasswordUtils.hashString(userName, "");
 
-        UserModel newUser = new UserModel(hashedUserName, saltPassword, userName, hashedPassword, phone);
+        UserModel newUser = new UserModel(hashedUserName, saltPassword, hashedPassword, userName, userLastName, phone);
 
         realTimeDataBase.registerNewUser(newUser, new RealTimeDataBase.OnListener() {
             @Override
@@ -104,6 +110,7 @@ public class RegisterNewUser extends AppCompatActivity {
             public void onError(String errorMessage) {
 
                 editTextUserName.setBackgroundResource(R.drawable.red_edit_text_border);
+                editTextLastName.setBackgroundResource(R.drawable.red_edit_text_border);
                 editTextPassword.setBackgroundResource(R.drawable.red_edit_text_border);
                 editTextPhone.setBackgroundResource(R.drawable.red_edit_text_border);
                 functions.ToastFunction(context, getString(R.string.registerProblem));

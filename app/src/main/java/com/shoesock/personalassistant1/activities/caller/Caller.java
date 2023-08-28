@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
@@ -35,10 +36,10 @@ public class Caller extends AppCompatActivity {
     private   STTFunctions sttFunctions;
     private ChatUtils chatUtils;
     private TTSFunctions ttsFunctions;
+    Functions functions;
     private static final int PICK_CONTACT_REQUEST = 1;
     private static final int PERMISSION_REQUEST_READ_CONTACTS = 1;
     private static final int PERMISSION_REQUEST_CALL_PHONE = 1;
-
 
 
 
@@ -67,7 +68,7 @@ public class Caller extends AppCompatActivity {
         ttsFunctions = new TTSFunctions(Caller.this); // init the ttsFunction class
         sttFunctions = new STTFunctions(Caller.this);
         chatUtils = new ChatUtils(context, Caller.this, chatContainer, scrollView, messageEditText); // init the chat helper class
-
+        functions = new Functions(Caller.this);
         setPointer();
     } // close the initClasses function
 
@@ -76,7 +77,7 @@ public class Caller extends AppCompatActivity {
 
         chatUtils.addMessage(chatContainer, scrollView, getString(R.string.screenToCall), false);
 
-        checkCallPermissions(); // wil check permissions
+        functions.checkCallPermissions(context); // wil check permissions
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -109,7 +110,7 @@ public class Caller extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "caller");
+        chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "callerActivity");
 
         if (requestCode == PICK_CONTACT_REQUEST && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
@@ -126,17 +127,6 @@ public class Caller extends AppCompatActivity {
         }
     } // close onActivityResult function
 
-    private void checkCallPermissions() {
-        // Check and request permissions
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Caller.this, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
-        }
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Caller.this, new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_REQUEST_CALL_PHONE);
-        }
-
-
-    }
     @Override
     protected void onPause() {
         super.onPause();

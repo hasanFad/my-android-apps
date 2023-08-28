@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shoesock.personalassistant1.interfaces.OnUserFetchListener;
+import com.shoesock.personalassistant1.models.MessageModel;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.models.UserModel;
 
@@ -100,6 +101,23 @@ public class RealTimeDataBase {
 
     }
 
+    public void insertMessageToDB(MessageModel messageModel, OnListener listener){
+        databaseUsersReference = database.getReference().child("messages");
+        databaseUsersReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String messageKey = databaseUsersReference.child(messageModel.getUserName()).push().getKey();
+                databaseUsersReference.child(messageModel.getUserName()).child(messageKey).setValue(messageModel);
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+    }
 
     public interface OnListener {
         void onSuccess();

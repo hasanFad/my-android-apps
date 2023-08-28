@@ -96,7 +96,7 @@ public class ReminderUtils {
                         //
     private void insertDataToModel(String sUsername, String date, String time, String content) throws ParseException {
 
-
+/////////////////////////////
 
             ReminderModel reminderModel = new ReminderModel(sUsername, date, time, content);
 

@@ -28,24 +28,25 @@ public class CallerUtils {
 
     public String checkCallerMessage(String userMessage) {
         // this function will check if the user want to call to new number or from contacts
-        String returnAppMessage = ""; // this string to return it.
+        String returnAppMessage = "לא הבנתי_ CALLERUTILS-LINE 31"; // this string to return it.
 
 
-        if (userMessage.equals("להתקשר למספר חדש")) {
+        if (userMessage.equals("להתקשר למספר חדש") || userMessage.equals("תתקשר למספר חדש")) {
             // will open the keyboard to set the number
             returnAppMessage = "לאיזה מספר אתה רוצה להתקשר?";
 
-        } else if (userMessage.equals("להתקשר לאיש קשר")) {
+        } else if (userMessage.equals("להתקשר לאיש קשר") || userMessage.equals("תתקשר לאיש קשר")) {
             // will open the contacts
             // functions.openContacts();
-            callContacts = true;
             returnAppMessage = "למי רוצה להתקשר?";
-
+            callContacts = true;
 
         }else if(functions.isValidPhoneNumber(userMessage) ){
             // call to the number
-               functions.callPhoneNumber(userMessage);
+            String ltrPhoneNumber = "\u202A" + userMessage + "\u202C";
 
+            functions.callPhoneNumber(ltrPhoneNumber);
+            returnAppMessage= "הפעלתי את הטלפון";
         }else if(callContacts){
             // search name from contacts to call
 
