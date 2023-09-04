@@ -13,6 +13,7 @@ import android.telephony.SmsManager;
 
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
+import com.shoesock.personalassistant1.functions.contact_utils.ContactUtils;
 import com.shoesock.personalassistant1.models.MessageModel;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class SMSUtils {
     Activity activity;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    ContactUtils contactUtils;
 
     boolean sendContact = preferences.getBoolean("sendToContact", false);
     boolean nowContact = preferences.getBoolean("nowContact", false);
@@ -39,6 +41,7 @@ public class SMSUtils {
         activity = activity1;
 
      preferences = PreferenceManager.getDefaultSharedPreferences(context);
+     contactUtils = new ContactUtils(activity1, context1);
 
     editor = preferences.edit();
     }
@@ -70,7 +73,8 @@ public class SMSUtils {
             editor.putString("contactName", userMessage);
             editor.remove("nowContact");
             editor.putBoolean("content", true);
-            returnMessage = getPhoneNumberFromName(context, contactName) ;
+           // returnMessage = getPhoneNumberFromName(context, contactName) ;
+            returnMessage = contactUtils.searchContactByName( contactName);
         }
 
         if (functions.isValidPhoneNumber(userMessage)){
@@ -91,7 +95,7 @@ public class SMSUtils {
 
                     // send to number
                     if (!phoneNumber.isEmpty() || phoneNumber != null){
-                        sendToWhatsApp(phoneNumber, messageContent);
+                        functions.sendToWhatsApp(phoneNumber, messageContent);
                         returnMessage = "ההודעה נשלחה";
                     }
                 }
@@ -127,7 +131,7 @@ public class SMSUtils {
         return returnMessage;
     } // close checkSmsUserRequest function
 
-    public String getPhoneNumberFromName(Context context, String contactName) {
+    public String getPhoneNumberFromame(Context context, String contactName) {
         String phoneNumber = null;
         String response = "מה תוכן ההודעה?";
         // Define the columns you want to retrieve from the Contacts database
@@ -162,16 +166,6 @@ public class SMSUtils {
     }
 
 
-    private void sendToWhatsApp(String nameOrNumber, String messageContent) {
-        if (functions.isValidPhoneNumber(nameOrNumber)) {
-
-            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + nameOrNumber + "&text=" + messageContent);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            activity.startActivity(intent);
-        }
-
-
-    }
 
 
     public void sendToSMS(String phoneNumber, String message) {
@@ -194,7 +188,6 @@ public class SMSUtils {
             smsManager.sendMultipartTextMessage(phoneNumber, null, parts, sentIntents, deliveredIntents);
         }
     }
-
 
 
     private String saveScheduleMessage() {

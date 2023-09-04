@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.shoesock.personalassistant1.interfaces.OnUserFetchListener;
 import com.shoesock.personalassistant1.models.MessageModel;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.models.UserModel;

@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setPointer() {
 
-        ttsFunctions.speak(greetingSpeech); // speak function wthi
+        functions.checkAllPermissionsNeeded(context);
+        ttsFunctions.speak(greetingSpeech); // greeting on speak function
         chatUtils.addMessage(chatContainer, scrollView, greetingMsg, false);
 
         int secondsDelayed = 1;

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.EditText;
 
 import com.shoesock.personalassistant1.functions.Functions;
+import com.shoesock.personalassistant1.functions.contact_utils.ContactUtils;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
 public class CallerUtils {
@@ -16,19 +17,22 @@ public class CallerUtils {
     SharedPreferencesAssistant preferencesClass;
     Functions functions;
     boolean callContacts;
+    ContactUtils contactUtils;
     public CallerUtils(Context context1, Activity activity1, EditText messageEditText1){
         context = context1;
         activity = activity1;
         messageEditText = messageEditText1;
         preferencesClass = new SharedPreferencesAssistant(context);
         functions = new Functions(activity);
+        contactUtils = new ContactUtils(activity1, context1);
 
     } // close CallerUtils function
 
+    String callerHelpForUser = "לא הבנתי, בשביל להתקשר , להגיד אם להתקשר למספר חדש או להתקשר לאיש קשר.";
 
     public String checkCallerMessage(String userMessage) {
         // this function will check if the user want to call to new number or from contacts
-        String returnAppMessage = "לא הבנתי_ CALLERUTILS-LINE 31"; // this string to return it.
+        String returnAppMessage = callerHelpForUser; // this string to return it.
 
 
         if (userMessage.equals("להתקשר למספר חדש") || userMessage.equals("תתקשר למספר חדש")) {
@@ -50,7 +54,7 @@ public class CallerUtils {
         }else if(callContacts){
             // search name from contacts to call
 
-            returnAppMessage = functions.callContactsNameIfExists(userMessage);
+            returnAppMessage = contactUtils.searchContactByName(userMessage);
 
         }
 

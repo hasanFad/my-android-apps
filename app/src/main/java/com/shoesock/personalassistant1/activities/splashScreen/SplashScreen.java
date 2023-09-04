@@ -58,7 +58,6 @@ public class SplashScreen extends Activity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-                functions.checkAllPermissionsNeeded(context);
 
                 SharedPreferences sharedPreferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("userName", null);

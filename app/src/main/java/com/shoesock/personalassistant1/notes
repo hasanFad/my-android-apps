@@ -19,9 +19,7 @@ set all params at Reminder and sms activities.
 
 
 
-9) add the sms sender (from the code) will get to the user to edit the sms before sending if he want.
-10) will add to the user set voices to reminder/topics/sms saved/ send.
-11) maybe add the chatGPT to the assistant ?
+1) maybe add the chatGPT to the assistant
 12) maybe add some speaking image for the main activity to be VIP app. (:
 13) to go to another layout will animate between activities.
 14) to speak to the assistant want to say the magic sentence like google -> (hii google), if want to listing
@@ -33,101 +31,7 @@ to the user without this magic sentence will open the app and speak and this is 
         //////////////////////////////
 
 
-SPEECH TO TEXT
- In your activity, call the startListening method to begin speech recognition, and implement the necessary logic in the onResults method to process the recognized speech text.
- You can start the speech recognition by calling startListening() method from your activity. Once the user finishes speaking, the onResults method will be triggered with the recognized speech text. You can process the recognized text as needed within the onResults method.
 
- Remember to handle errors and other callback methods according to your app's requirements.
-
- Note: Speech recognition requires an internet connection, and the availability and accuracy of speech recognition may vary depending on the device and network conditions.
-
- Please note that the above example demonstrates the basic implementation of speech recognition from a class to an activity. You may need to customize and expand upon it based on your specific requirements.
-
-
-SHARED PREFERENCES:
-- for login : "loginPreferences"
-- for reminderDate: "reminderDatePreferences"
-- for reminderTime : "reminderTimePreferences"
-- for reminderContent : "reminderContentPreferences"
-
-
-
-
-how about:
--users
-   - hasan:   // the userName
-        - userPassword1: "hasanPassword"
-        - userName1 : "hasan"
-        - phone1: "0123456789"
-   -fadool:  // the userName
-       -userPassword2: "fadoolPassword"
-       -userName2: "fadool"
-       -phone2 : "3567920987"
-
-- reminders
-   -hasan // userName
-        - reminder1
-             - date : "25\07\2023"
-             - time: "07:30'
-             - content: "dont forget to send my child to school"
-        - reminder2
-             - date:"25\07\2023"
-             -time:"14:00"
-             - content:"dont forget to get my child from school"
-   -fadool
-        -reminder1
-             -date : "26\07\2023"
-             - time: "08:30'
-             - content: "dont forget to drink water"
-        - reminder2
-             - date:"25\07\2023"
-             -time:"11:00"
-             - content:"dont forget to send mail to elissa"
-
--topics
-    -hasan
-        -topicName: "school"
-            -topicContent: "the school is for studies....."
-            -relatedTopics:"students"
-            -keywords:"school, students"
-        -topicName:"students"
-           -topicContent: "students in the school want to learn...."
-           -relatedTopics:"school"
-           -keywords:"school, students, learn"
--scheduledMessages
-    -hasan
-         - date: "2023-08-04"
-             - time: "15:00"
-             - phone_number: "111111111"
-             - sms_content: "Scheduled message 1 content"
-         - date: "2023-08-04"
-             - time: "15:30"
-             - phone_number: "222222222"
-             - sms_content: "Scheduled message 2 content"
-
-    -fadool
-        - date: "2023-08-24"
-             - time: "15:30"
-             - phone_number: "63742369"
-             - sms_content: "Scheduled message content"
-
-
-
-
-
-//////////
-shared preferences
-if date
-key reminderDatePreferences   - value userMessage
-
-if time
-key reminderDatePreferences   - value userMessage
-
-if not date and not time
-will check the shared keys
-if have true
-wil save content
- key reminderContentPreferences  - value userMessage
 
 
 

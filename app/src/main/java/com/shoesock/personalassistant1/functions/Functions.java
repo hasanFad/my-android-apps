@@ -3,6 +3,7 @@ package com.shoesock.personalassistant1.functions;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,8 +25,10 @@ import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -100,35 +103,6 @@ public class Functions implements Serializable {
         }
     } // close validateAndSaveReminder function
 
-    public String callContactsNameIfExists(String userMessage){
-            String returnResponse = "";
-        Cursor cursor = activity.getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?",
-                new String[]{"%" + userMessage +"%" },
-                null
-        );
-
-        if (cursor.getCount() > 0) {
-            // Name exists in contacts, initiate a call
-            while (cursor.moveToNext()) {
-                @SuppressLint("Range") String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-                String phoneNumberToCall = "tel:" + phoneNumber;
-                Intent dialIntent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumberToCall));
-                activity.startActivity(dialIntent);
-                returnResponse = "הפעלתי טלפון";
-            }
-
-        } else {
-            // Name not found, perform TTS and open contacts
-            returnResponse = "השם לא נמצא, פתחתי אנשי קשר";
-            openContacts();
-        }
-
-        return returnResponse;
-    } // close callContactsNameIfExists function
 
     public void openContacts(){
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -143,8 +117,6 @@ public class Functions implements Serializable {
             activity.startActivity(intent);
         }
     } // close callPhoneNumber function
-
-
 
 
     public void checkCallPermissions(Context context) {
@@ -178,11 +150,24 @@ public class Functions implements Serializable {
 
     } // close checkAllPermissionsNeeded function
 
+
+    public void sendToWhatsApp(String nameOrNumber, String messageContent) {
+        if (isValidPhoneNumber(nameOrNumber)) {
+
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + nameOrNumber + "&text=" + messageContent);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            activity.startActivity(intent);
+        }
+
+
+    }
+
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
 
         } // close the Functions class
