@@ -2,30 +2,21 @@ package com.shoesock.personalassistant1.functions.contact_utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.provider.ContactsContract;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.shoesock.personalassistant1.Manifest;
 import com.shoesock.personalassistant1.functions.Functions;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ContactUtils {
 
     Activity activity;
     Context context;
     Functions functions;
-    public ContactUtils(Activity activity1, Context contex1){
+    public ContactUtils(Activity activity1, Context context1){
         this.activity = activity1;
-        this.context = contex1;
+        this.context = context1;
         functions = new Functions(activity1);
     }
 

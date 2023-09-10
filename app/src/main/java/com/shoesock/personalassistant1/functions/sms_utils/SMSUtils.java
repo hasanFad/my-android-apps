@@ -26,23 +26,26 @@ public class SMSUtils {
     SharedPreferences.Editor editor;
     ContactUtils contactUtils;
 
-    boolean sendContact = preferences.getBoolean("sendToContact", false);
-    boolean nowContact = preferences.getBoolean("nowContact", false);
-    boolean content = preferences.getBoolean("content", false);
-    boolean sendWhatsApp = preferences.getBoolean("useWhatsApp", false);
-    boolean scheduleMessage = preferences.getBoolean("scheduleMessage", false);
-    String contactName = preferences.getString("contactName", null);
-    String messageContent = preferences.getString("messageContent", null);
-    String phoneNumber = preferences.getString("phoneNumber", null);
-    String messageDate = preferences.getString("scheduleMessageDate", null);
-    String messageTime = preferences.getString("messageTime", null);
+    boolean sendContact, nowContact, content, sendWhatsApp, scheduleMessage;
+    String contactName , messageContent , phoneNumber, messageDate , messageTime;
+
     public SMSUtils(Context context1, Activity activity1 ){
         context = context1;
         activity = activity1;
 
-     preferences = PreferenceManager.getDefaultSharedPreferences(context);
      contactUtils = new ContactUtils(activity1, context1);
+     preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
+         sendContact = preferences.getBoolean("sendToContact", false);
+         nowContact = preferences.getBoolean("nowContact", false);
+         content = preferences.getBoolean("content", false);
+         sendWhatsApp = preferences.getBoolean("useWhatsApp", false);
+         scheduleMessage = preferences.getBoolean("scheduleMessage", false);
+         contactName = preferences.getString("contactName", null);
+         messageContent = preferences.getString("messageContent", null);
+         phoneNumber = preferences.getString("phoneNumber", null);
+         messageDate = preferences.getString("scheduleMessageDate", null);
+         messageTime = preferences.getString("messageTime", null);
     editor = preferences.edit();
     }
     RealTimeDataBase realTimeDataBase = new RealTimeDataBase();
@@ -75,6 +78,9 @@ public class SMSUtils {
             editor.putBoolean("content", true);
            // returnMessage = getPhoneNumberFromName(context, contactName) ;
             returnMessage = contactUtils.searchContactByName( contactName);
+            if (returnMessage.equals("לא נמצא איש קשר תואם.")){
+                functions.openContacts();
+            }
         }
 
         if (functions.isValidPhoneNumber(userMessage)){

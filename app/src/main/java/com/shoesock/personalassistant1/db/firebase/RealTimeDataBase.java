@@ -1,5 +1,7 @@
 package com.shoesock.personalassistant1.db.firebase;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,23 @@ public class RealTimeDataBase {
         databaseUsersReference = firebaseDatabase.getReference().child("users");
     }
 
+    public void userPasswordUpdate(String userName, String hashingPassword){
+    databaseUsersReference.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                // Update the hashed password
+                userSnapshot.getRef().child("userHashedPassword").setValue(hashingPassword);
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+
+    } // close userPasswordUpdate function
 
     // login the user
     public void getUserByHashedUserName(String hashedUserName, OnUserFetchListener listener) {

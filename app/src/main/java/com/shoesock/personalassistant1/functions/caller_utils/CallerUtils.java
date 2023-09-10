@@ -55,6 +55,9 @@ public class CallerUtils {
             // search name from contacts to call
 
             returnAppMessage = contactUtils.searchContactByName(userMessage);
+            if (returnAppMessage.equals("לא נמצא איש קשר תואם.")){
+                functions.openContacts();
+            }
 
         }
 

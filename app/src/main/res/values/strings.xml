@@ -62,6 +62,8 @@
     <string name="howToCall">בשביל להתקשר, תגיד להתקשר לאיש קשר. או. להתקשר למספר חדש</string>
     <string name="insertLastName">הכנס שם משפחה</string>
     <string name="wantToSendWhatsAppOrSMS">רוצה לשלוח הודעת וואוסאפ או רגילה?</string>
+    <string name="resetPassword">איפוס סיסמה</string>
+    <string name="insertNewPassword">הכנס סיסמה חדשה</string>
 
     <string-array name="userAsk">
         <item>אני רוצה לשלוח הודעה</item>
