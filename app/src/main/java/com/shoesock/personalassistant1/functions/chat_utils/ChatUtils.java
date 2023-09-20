@@ -24,7 +24,7 @@ import com.shoesock.personalassistant1.activities.sms.SMSAssistant;
 import com.shoesock.personalassistant1.activities.topics.Topics;
 import com.shoesock.personalassistant1.functions.caller_utils.CallerUtils;
 import com.shoesock.personalassistant1.functions.reminder_utils.ReminderUtils;
-import com.shoesock.personalassistant1.functions.sms_utils.SMSUtils;
+import com.shoesock.personalassistant1.functions.sms_utils.SMSUtils2;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ChatUtils {
     ReminderUtils reminderUtils;
      TTSFunctions ttsFunctions;
      CallerUtils callerUtils;
-     SMSUtils smsUtils;
+     SMSUtils2 smsUtils;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
 
 
@@ -53,7 +53,7 @@ public class ChatUtils {
         scrollView = scrollView1;
         reminderUtils = new ReminderUtils(context1, activity1, chatContainer, scrollView1);
         callerUtils = new CallerUtils(context1, activity1, messageEditText);
-        smsUtils = new SMSUtils(context1, activity1);
+        smsUtils = new SMSUtils2(context1, activity1);
     }
 
 

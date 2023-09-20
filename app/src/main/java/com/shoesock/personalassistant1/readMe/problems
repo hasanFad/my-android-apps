@@ -7,5 +7,8 @@
 
 
 PROBLEMS:
-
+--
+SMSUtils.java
+changed the editor (sharedPreferences) to preferencesAssistant-
+now will change the getBoolean and getString from editor to preferencesAssistant.
 

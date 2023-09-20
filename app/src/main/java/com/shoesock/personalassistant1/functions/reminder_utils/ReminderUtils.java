@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
+import com.shoesock.personalassistant1.functions.password_utils.PasswordUtils;
 import com.shoesock.personalassistant1.models.ReminderModel;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
@@ -46,14 +47,14 @@ public class ReminderUtils {
 
         if (functions.isValidDate(userMessage)){ // user message is date
             // it is date
-            preferencesClass.saveSharedPreferences(REMINDER_PREFERENCES, "reminderDatePreferences", userMessage);
+            preferencesClass.saveStringSharedPreferences(REMINDER_PREFERENCES, "reminderDatePreferences", userMessage);
             functions.ToastFunction(context, userMessage);
             returnAppMessage = context.getString(R.string.reminderDateSuccessfullyCaptured) + " " + context.getString(R.string.whatReminderTimeWithout);
 
 
         }else if (functions.isValidTime(userMessage)){ // user message is time
 
-            preferencesClass.saveSharedPreferences(REMINDER_PREFERENCES, "reminderTimePreferences", userMessage);
+            preferencesClass.saveStringSharedPreferences(REMINDER_PREFERENCES, "reminderTimePreferences", userMessage);
             functions.ToastFunction(context, userMessage);
 
             returnAppMessage = context.getString(R.string.reminderTimeSuccessfullyCaptured) + context.getString(R.string.whatReminderContentWithout);
@@ -66,12 +67,14 @@ public class ReminderUtils {
             if(shredDate != null){
                 if (sharedTime != null){
 
-                    preferencesClass.saveSharedPreferences(REMINDER_PREFERENCES, "reminderContentPreferences", userMessage);
+                    preferencesClass.saveStringSharedPreferences(REMINDER_PREFERENCES, "reminderContentPreferences", userMessage);
                     SharedPreferences sharedPreferencesFromLogin = activity.getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                     String sUsername = sharedPreferencesFromLogin.getString("userName", null);
+                    String hashedUserName = PasswordUtils.hashString(sUsername, "");
+
                     // (String userName, Date reminderDate, Date reminderTime, String reminderContent){
                     try {
-                        insertDataToModel(sUsername, shredDate, sharedTime, userMessage);
+                        insertDataToModel(hashedUserName, shredDate, sharedTime, userMessage);
 
                     } catch (ParseException e) {
                         throw new RuntimeException(e);

@@ -101,10 +101,11 @@ public class ForgetPassword extends AppCompatActivity {
 
     private void checkIfUserExist() {
         String hashedUserName = PasswordUtils.hashString(userName, "");
+        String hashedLastName = PasswordUtils.hashString(userLastName, "");
         realTimeDataBase.getUserByHashedUserName(hashedUserName, new RealTimeDataBase.OnUserFetchListener() {
             @Override
             public void onUserFetchSuccess(UserModel user) {
-                if(userLastName.equals(user.getUserLastName())){
+                if(hashedLastName.equals(user.getUserLastName())){
                     if (userPhone.equals(user.getUserPhone())){
                         // the first and last name and phone is ok
                         String hashedPassword = PasswordUtils.hashString(userPassword, user.getSlat());

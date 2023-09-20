@@ -93,13 +93,14 @@ public class RegisterNewUser extends AppCompatActivity {
         String saltPassword = PasswordUtils.generateSalt();
         String hashedPassword = PasswordUtils.hashString(password, saltPassword);
         String hashedUserName = PasswordUtils.hashString(userName, "");
+        String hashedLastName = PasswordUtils.hashString(userLastName, "");
 
-        UserModel newUser = new UserModel(hashedUserName, saltPassword, hashedPassword, userName, userLastName, phone);
+        UserModel newUser = new UserModel(hashedUserName, saltPassword, hashedPassword, hashedLastName, phone);
 
         realTimeDataBase.registerNewUser(newUser, new RealTimeDataBase.OnListener() {
             @Override
             public void onSuccess() {
-                preferencesAssistant.saveSharedPreferences("loginPreferences","userName", userName);
+                preferencesAssistant.saveStringSharedPreferences("loginPreferences","userName", userName);
 
                 Intent intent = new Intent(RegisterNewUser.this, MainActivity.class);
                 startActivity(intent);

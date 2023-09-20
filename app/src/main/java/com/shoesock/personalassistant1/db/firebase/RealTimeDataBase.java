@@ -17,7 +17,7 @@ import com.shoesock.personalassistant1.models.UserModel;
 public class RealTimeDataBase {
 
 
-    private DatabaseReference databaseUsersReference;
+    private DatabaseReference databaseUsersReference, databaseRemindersReference;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
@@ -25,24 +25,28 @@ public class RealTimeDataBase {
         // Initialize the database reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseUsersReference = firebaseDatabase.getReference().child("users");
+        databaseRemindersReference = firebaseDatabase.getReference().child("reminders");
     }
 
-    public void userPasswordUpdate(String userName, String hashingPassword){
-    databaseUsersReference.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                // Update the hashed password
-                userSnapshot.getRef().child("userHashedPassword").setValue(hashingPassword);
+    public void userPasswordUpdate(String userName, String hashingPassword) {
+        DatabaseReference userRef = databaseUsersReference.child(userName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Update the hashed password
+                    userRef.child("userHashedPassword").setValue(hashingPassword);
+                } else {
+                    // Handle the case where the user doesn't exist
+                    // You might want to display an error message or take appropriate action.
+                }
             }
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    });
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle the database error if needed.
+            }
+        });
     } // close userPasswordUpdate function
 
     // login the user
@@ -70,6 +74,10 @@ public class RealTimeDataBase {
 
     }
 
+
+    public void getReminderByUserNameByDate(String hashedUserName, OnUserFetchListener listener){
+        databaseRemindersReference.orderByChild(hashedUserName).equalTo("");
+    }
 
     public interface OnUserFetchListener {
         void onUserFetchSuccess(UserModel user);

@@ -14,10 +14,18 @@ public class SharedPreferencesAssistant {
     } // close SharedPreferencesAssistant function
 
 
-    public void saveSharedPreferences(String sharedName, String key, String value ){
+    public void saveStringSharedPreferences(String sharedName, String key, String value ){
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharedName, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
+        editor.apply();
+    } // close saveStringSharedPreferences function
+
+
+    public void saveBooleanSharedPreferences(String sharedName, String key, boolean value ){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(sharedName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
         editor.apply();
     } // close saveSharedPreferences function
 

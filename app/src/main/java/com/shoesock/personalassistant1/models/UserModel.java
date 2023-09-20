@@ -29,8 +29,7 @@ public class UserModel implements Serializable {
         return userPhone;
     }
 
-    public UserModel(String hashedUserName, String slat, String userHashedPassword, String userName, String userLastName,String userPhone) {
-        this.userName = userName;
+    public UserModel(String hashedUserName, String slat, String userHashedPassword, String userLastName,String userPhone) {
         this.userPhone = userPhone;
         this.userLastName = userLastName;
         this.userHashedPassword = userHashedPassword;
