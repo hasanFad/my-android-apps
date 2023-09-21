@@ -20,6 +20,7 @@ import com.shoesock.personalassistant1.R;
 import com.shoesock.personalassistant1.activities.login.Login;
 import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.progress_bar.ProgressBarUtils;
+import com.shoesock.personalassistant1.shared_preferences.SharedPrefKeys;
 
 
 public class SplashScreen extends Activity {
@@ -59,7 +60,7 @@ public class SplashScreen extends Activity {
             public void run() {
 
 
-                SharedPreferences sharedPreferences = getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREFERENCES_KEY, Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("userName", null);
 
 

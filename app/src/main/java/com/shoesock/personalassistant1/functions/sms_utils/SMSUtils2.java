@@ -53,11 +53,11 @@ public class SMSUtils2 {
     RealTimeDataBase realTimeDataBase = new RealTimeDataBase();
 
     Functions functions = new Functions(activity);
-    String doNotUnderStandSMS = "תגיד אחד מאלה, לשלוח וואטסאפ. או לשלוח הודעה רגילה.";
+    String doNotUnderstandSMS = "תגיד אחד מאלה, לשלוח וואטסאפ. או לשלוח הודעה רגילה.";
 
-    public String checkSmsUserRequest(String userMessage){
+    public String checkSmsUserRequest2(String userMessage){
 
-        String returnMessage = doNotUnderStandSMS;
+        String returnMessage = doNotUnderstandSMS;
 
         if (userMessage.equals("לשלוח וואטסאפ") || userMessage.equals("הודעת וואטסאפ")){
             preferencesAssistant.saveBooleanSharedPreferences("messages","useWhatsApp" ,true);
@@ -148,6 +148,63 @@ public class SMSUtils2 {
 
         return returnMessage;
     } // close checkSmsUserRequest function
+
+    public String checkSmsUserRequest(String userMessage) {
+        String returnMessage = doNotUnderstandSMS;
+
+        switch (userMessage) {
+            case "לשלוח וואטסאפ":
+            case "הודעת וואטסאפ":
+                preferencesAssistant.saveBooleanSharedPreferences("messages", "useWhatsApp", true);
+                returnMessage = "לשלוח למספר חדש? או לאיש קשר?";
+                if (sendWhatsApp) {
+                    Toast.makeText(context, "sendWhatsApp", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case "לשלוח הודעה רגילה":
+                preferencesAssistant.saveBooleanSharedPreferences("messages", "useWhatsApp", false);
+                returnMessage = "לשלוח למספר חדש? או לשלוח לאיש קשר?";
+                break;
+
+            case "לשלוח לאיש קשר":
+            case "איש קשר":
+                preferencesAssistant.saveBooleanSharedPreferences("messages", "sendToContact", true);
+                preferencesAssistant.saveBooleanSharedPreferences("messages", "nowContact", true);
+                returnMessage = "מה שם איש הקשר?";
+                break;
+
+            case "לשלוח עכשיו":
+                if (sendWhatsApp) {
+                    if (sendContact) {
+                        if (!phoneNumber.isEmpty() || phoneNumber != null) {
+                            functions.sendToWhatsApp(phoneNumber, messageContent);
+                            returnMessage = "ההודעה נשלחה";
+                        }
+                    }
+                } else {
+                    if (sendContact) {
+                        if (!phoneNumber.isEmpty() || phoneNumber != null) {
+                            sendToSMS(phoneNumber, messageContent);
+                            returnMessage = "ההודעה נשלחה";
+                        }
+                    }
+                }
+                break;
+
+            case "הודעה מתוזמנת":
+                preferencesAssistant.saveBooleanSharedPreferences("messages", "scheduleMessage", true);
+                returnMessage = "באיזה תאריך לשלוח?";
+                break;
+
+            // Handle additional cases as needed...
+
+
+        }
+
+        return returnMessage;
+    } // close checkSmsUserRequest function
+
 
     public String getPhoneNumberFromame(Context context, String contactName) {
         String phoneNumber = null;

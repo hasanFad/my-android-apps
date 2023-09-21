@@ -1,6 +1,7 @@
 package com.shoesock.personalassistant1.activities.forgetPassword;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,10 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
+import com.shoesock.personalassistant1.activities.MainActivity;
+import com.shoesock.personalassistant1.activities.register.RegisterNewUser;
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.password_utils.PasswordUtils;
 import com.shoesock.personalassistant1.models.UserModel;
+import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
 public class ForgetPassword extends AppCompatActivity {
 
@@ -23,6 +27,8 @@ public class ForgetPassword extends AppCompatActivity {
     Context context;
 
     RealTimeDataBase realTimeDataBase;
+    SharedPreferencesAssistant preferencesAssistant;
+
     Functions functions;
 
     @Override
@@ -47,6 +53,8 @@ public class ForgetPassword extends AppCompatActivity {
     private void classesInit() {
         functions = new Functions(this);
         realTimeDataBase = new RealTimeDataBase();
+        preferencesAssistant = new SharedPreferencesAssistant(context);
+
         setPointer();
     } // close classesInit function
 
@@ -111,6 +119,11 @@ public class ForgetPassword extends AppCompatActivity {
                         String hashedPassword = PasswordUtils.hashString(userPassword, user.getSlat());
                         realTimeDataBase.userPasswordUpdate(hashedUserName, hashedPassword);
                         functions.ToastFunction(context, "הסיסמה עודכנה בהצלחה!");
+                        preferencesAssistant.saveStringSharedPreferences("loginPreferences","userName", userName);
+
+                        Intent intent = new Intent(ForgetPassword.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }else {
                         phone.setError(getString(R.string.userNotExist));
                     }

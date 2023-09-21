@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -122,6 +124,30 @@ public class MainActivity extends AppCompatActivity {
         chatUtils.onActivityResult(requestCode, resultCode, data, messageEditText, "mainActivity");
 
     } // close onActivityResult function
+
+        // menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    } // close onCreateOptionsMenu function
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_exit_delete) {
+            // Perform exit and delete username action
+            functions.exitAndDeleteUsername();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     @Override
     protected void onPause() {

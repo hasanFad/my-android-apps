@@ -88,7 +88,6 @@ public class RealTimeDataBase {
 
     public void registerNewUser(UserModel userModel, OnListener listener) {
 
-
         databaseUsersReference = database.getReference().child("users");
         databaseUsersReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

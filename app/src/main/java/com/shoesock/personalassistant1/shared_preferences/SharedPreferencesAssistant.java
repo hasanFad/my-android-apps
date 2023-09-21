@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 public class SharedPreferencesAssistant {
     private Context context;
     SharedPreferences sharedPreferences;
-    String REMINDER_PREFERENCES = "reminderPreferences";
 
 
     public SharedPreferencesAssistant(Context context){
@@ -38,9 +37,9 @@ public class SharedPreferencesAssistant {
 
     public void removeReminderFromShared() {
         // the keys is: reminderDatePreferences / reminderDatePreferences / reminderContentPreferences
-        removeShared(REMINDER_PREFERENCES, "reminderDatePreferences");
-        removeShared(REMINDER_PREFERENCES, "reminderTimePreferences");
-        removeShared(REMINDER_PREFERENCES, "reminderContentPreferences");
+        removeShared(SharedPrefKeys.REMINDER_PREFERENCES_KEY, "reminderDatePreferences");
+        removeShared(SharedPrefKeys.REMINDER_PREFERENCES_KEY, "reminderTimePreferences");
+        removeShared(SharedPrefKeys.REMINDER_PREFERENCES_KEY, "reminderContentPreferences");
     } // close removeReminderFromShared function
 
 } // close SharedPreferences class

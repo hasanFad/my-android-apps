@@ -1,11 +1,14 @@
 package com.shoesock.personalassistant1.functions;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -20,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.shoesock.personalassistant1.activities.caller.Caller;
+import com.shoesock.personalassistant1.activities.login.Login;
 import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 
 import java.io.Serializable;
@@ -170,4 +174,21 @@ public class Functions implements Serializable {
     }
 
 
-        } // close the Functions class
+    // for menu
+    public void exitAndDeleteUsername() {
+        // Delete the username from shared preferences
+        SharedPreferences preferences = activity.getSharedPreferences("loginPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("username");
+        editor.apply();
+
+        // Navigate to the login activity
+        Intent intent = new Intent(activity, Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+
+
+} // close the Functions class

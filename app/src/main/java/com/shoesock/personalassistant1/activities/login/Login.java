@@ -129,7 +129,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show();
 
 
-                    preferencesAssistant.saveStringSharedPreferences("loginPreferences","userName", userName);
+                    preferencesAssistant.saveStringSharedPreferences("","userName", userName);
                    Intent intent = new Intent(Login.this, MainActivity.class);
                     startActivity(intent);
                     finish();

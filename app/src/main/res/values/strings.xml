@@ -64,6 +64,7 @@
     <string name="wantToSendWhatsAppOrSMS">רוצה לשלוח הודעת וואטסאפ או רגילה?</string>
     <string name="resetPassword">איפוס סיסמה</string>
     <string name="insertNewPassword">הכנס סיסמה חדשה</string>
+    <string name="disconnect">התנתק</string>
 
     <string-array name="userAsk">
         <item>אני רוצה לשלוח הודעה</item>

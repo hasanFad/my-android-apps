@@ -16,6 +16,7 @@ import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.password_utils.PasswordUtils;
 import com.shoesock.personalassistant1.models.UserModel;
+import com.shoesock.personalassistant1.shared_preferences.SharedPrefKeys;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
 public class RegisterNewUser extends AppCompatActivity {
@@ -100,7 +101,7 @@ public class RegisterNewUser extends AppCompatActivity {
         realTimeDataBase.registerNewUser(newUser, new RealTimeDataBase.OnListener() {
             @Override
             public void onSuccess() {
-                preferencesAssistant.saveStringSharedPreferences("loginPreferences","userName", userName);
+                preferencesAssistant.saveStringSharedPreferences(SharedPrefKeys.LOGIN_PREFERENCES_KEY,"userName", userName);
 
                 Intent intent = new Intent(RegisterNewUser.this, MainActivity.class);
                 startActivity(intent);
