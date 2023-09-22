@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shoesock.personalassistant1.R;
-import com.shoesock.personalassistant1.activities.MainActivity;
+
 import com.shoesock.personalassistant1.functions.chat_utils.ChatUtils;
 import com.shoesock.personalassistant1.speech.stt.STTFunctions;
 import com.shoesock.personalassistant1.speech.tts.TTSFunctions;
@@ -60,7 +60,7 @@ public class SMSAssistant extends AppCompatActivity {
         chatUtils = new ChatUtils(context, SMSAssistant.this, chatContainer, scrollView, messageEditText); // init the chat helper class
         ttsFunctions = new TTSFunctions(SMSAssistant.this); // init the ttsFunction class
 
-         setPointer();
+        setPointer();
     }
 
     private void setPointer() {

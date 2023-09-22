@@ -10,10 +10,14 @@ import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import com.shoesock.personalassistant1.db.firebase.RealTimeDataBase;
 import com.shoesock.personalassistant1.functions.Functions;
 import com.shoesock.personalassistant1.functions.contact_utils.ContactUtils;
 import com.shoesock.personalassistant1.models.MessageModel;
+import com.shoesock.personalassistant1.shared_preferences.SharedPrefKeys;
 import com.shoesock.personalassistant1.shared_preferences.SharedPreferencesAssistant;
 
 import java.util.ArrayList;
@@ -27,7 +31,7 @@ public class SMSUtils2 {
     SharedPreferences preferences;
     ContactUtils contactUtils;
 
-    boolean sendContact, nowContact, content, sendWhatsApp, scheduleMessage;
+    boolean sendContact, nowContact, nowContent, sendWhatsApp, scheduleMessage;
     String contactName , messageContent , phoneNumber, messageDate , messageTime;
 
     public SMSUtils2(Context context1, Activity activity1 ){
@@ -35,18 +39,19 @@ public class SMSUtils2 {
         activity = activity1;
         preferencesAssistant = new SharedPreferencesAssistant(context);
         
-        preferences = context.getSharedPreferences("messages", Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
          contactUtils = new ContactUtils(activity1, context1);
-         sendContact = preferences.getBoolean("sendToContact", false);
-         nowContact = preferences.getBoolean("nowContact", false);
-         content = preferences.getBoolean("content", false);
-         sendWhatsApp = preferences.getBoolean("useWhatsApp", false);
-         scheduleMessage = preferences.getBoolean("scheduleMessage", false);
-         contactName = preferences.getString("contactName", null);
-         messageContent = preferences.getString("messageContent", null);
-         phoneNumber = preferences.getString("phoneNumber", null);
-         messageDate = preferences.getString("scheduleMessageDate", null);
+         sendContact = preferences.getBoolean(SharedPrefKeys.MESSAGES_PREFERENCES_CONTACT_KEY, false);
+         nowContact = preferences.getBoolean(SharedPrefKeys.MESSAGES_PREFERENCES_NOW_CONTACT_KEY, false);
+         nowContent = preferences.getBoolean(SharedPrefKeys.MESSAGES_PREFERENCES_MESSAGE_CONTENT_BOOLEAN_KEY, false);
+         sendWhatsApp = preferences.getBoolean(SharedPrefKeys.MESSAGES_PREFERENCES_USE_WHATSAPP_KEY, false);
+         scheduleMessage = preferences.getBoolean(SharedPrefKeys.MESSAGES_PREFERENCES_SCHEDULE_KEY, false);
+         messageContent = preferences.getString(SharedPrefKeys.MESSAGES_PREFERENCES_MESSAGE_CONTENT_STRING_KEY, null);
+         phoneNumber = preferences.getString(SharedPrefKeys.MESSAGES_PREFERENCES_PHONE_KEY, null);
+
+        contactName = preferences.getString("contactName", null);
+        messageDate = preferences.getString("scheduleMessageDate", null);
          messageTime = preferences.getString("messageTime", null);
 
     }
@@ -98,17 +103,15 @@ public class SMSUtils2 {
             returnMessage = "מה תוכן ההודעה?";
         }
 
-        if (content){
+        if (nowContent){
             preferencesAssistant.saveStringSharedPreferences("messages","messageContent" ,userMessage);
             preferencesAssistant.removeShared("messages", "content");
             returnMessage = "לשלוח עכשיו? או הודעה מתוזמנת?";
         }
 
-
         if (userMessage.equals("לשלוח עכשיו")){
             if (sendWhatsApp){
                 if (sendContact){
-
                     // send to number
                     if (!phoneNumber.isEmpty() || phoneNumber != null){
                         functions.sendToWhatsApp(phoneNumber, messageContent);
@@ -127,7 +130,6 @@ public class SMSUtils2 {
             }
         }
 
-
         if (userMessage.equals("הודעה מתוזמנת")){
             preferencesAssistant.saveBooleanSharedPreferences("messages", "scheduleMessage", true);
             returnMessage = "באיזה תאריך לשלוח?";
@@ -141,10 +143,8 @@ public class SMSUtils2 {
 
         if (scheduleMessage && messageDate != null && functions.isValidTime(userMessage)){
             preferencesAssistant.saveStringSharedPreferences("messages", "messageTime", userMessage);
-
             returnMessage = saveScheduleMessage();
         }
-
 
         return returnMessage;
     } // close checkSmsUserRequest function
@@ -153,24 +153,33 @@ public class SMSUtils2 {
         String returnMessage = doNotUnderstandSMS;
 
         switch (userMessage) {
+
             case "לשלוח וואטסאפ":
             case "הודעת וואטסאפ":
-                preferencesAssistant.saveBooleanSharedPreferences("messages", "useWhatsApp", true);
+            case "לשלוח הודעת וואטסאפ":
+            case "וואטסאפ":
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_USE_WHATSAPP_KEY, true);
                 returnMessage = "לשלוח למספר חדש? או לאיש קשר?";
-                if (sendWhatsApp) {
-                    Toast.makeText(context, "sendWhatsApp", Toast.LENGTH_SHORT).show();
-                }
                 break;
 
             case "לשלוח הודעה רגילה":
-                preferencesAssistant.saveBooleanSharedPreferences("messages", "useWhatsApp", false);
+            case "הודעה רגילה":
+            case "הודעה":
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_USE_WHATSAPP_KEY, false);
                 returnMessage = "לשלוח למספר חדש? או לשלוח לאיש קשר?";
+                break;
+
+            case "לשלוח למספר חדש":
+            case "מספר חדש":
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME,SharedPrefKeys.MESSAGES_PREFERENCES_CONTACT_KEY ,false);
+                returnMessage = "מה הוא המספר?";
                 break;
 
             case "לשלוח לאיש קשר":
             case "איש קשר":
-                preferencesAssistant.saveBooleanSharedPreferences("messages", "sendToContact", true);
-                preferencesAssistant.saveBooleanSharedPreferences("messages", "nowContact", true);
+            case "לשלוח הודעה לאיש קשר":
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_CONTACT_KEY, true);
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_NOW_CONTACT_KEY, true);
                 returnMessage = "מה שם איש הקשר?";
                 break;
 
@@ -182,26 +191,45 @@ public class SMSUtils2 {
                             returnMessage = "ההודעה נשלחה";
                         }
                     }
-                } else {
+                }else {
                     if (sendContact) {
                         if (!phoneNumber.isEmpty() || phoneNumber != null) {
                             sendToSMS(phoneNumber, messageContent);
                             returnMessage = "ההודעה נשלחה";
                         }
                     }
-                }
+                } // close if_else function
                 break;
 
             case "הודעה מתוזמנת":
-                preferencesAssistant.saveBooleanSharedPreferences("messages", "scheduleMessage", true);
-                returnMessage = "באיזה תאריך לשלוח?";
+            case "לשלוח מאוחר יותר":
+            case "לשלוח הודעה מאוחר יותר":
+            case "לשלוח מאוחר":
+            case "מתוזמנת":
+                preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_SCHEDULE_KEY, true);
+                returnMessage = "מתי לשלוח?";
                 break;
 
-            // Handle additional cases as needed...
+            case "היום":
+                LocalDate currentDate = LocalDate.now(); // get the date of this day  Get the current date
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Define the desired date format
+                String formattedDate = currentDate.format(formatter); // Format the date as a string
+                returnMessage = formattedDate; // Set the formatted date in the EditText
+                break;
 
+            default:
+                if (functions.isValidPhoneNumber(userMessage)){
+                    preferencesAssistant.saveStringSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME,SharedPrefKeys.MESSAGES_PREFERENCES_PHONE_KEY ,userMessage);
+                    preferencesAssistant.saveBooleanSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_MESSAGE_CONTENT_BOOLEAN_KEY, true);
+                    returnMessage = "מה תוכן ההודעה?";
 
-        }
-
+                }else if (phoneNumber != null && nowContent){
+                    // have the phone number now the user message is content
+                    preferencesAssistant.saveStringSharedPreferences(SharedPrefKeys.MESSAGES_PREFERENCES_NAME, SharedPrefKeys.MESSAGES_PREFERENCES_MESSAGE_CONTENT_STRING_KEY, userMessage);
+                    returnMessage = "האם לשלוח עכשיו או לשלוח מאוחר יותר?";
+                } // close if_else
+                break;
+        } // close switch
         return returnMessage;
     } // close checkSmsUserRequest function
 
@@ -240,9 +268,6 @@ public class SMSUtils2 {
         }
         return response;
     }
-
-
-
 
     public void sendToSMS(String phoneNumber, String message) {
         SmsManager smsManager = SmsManager.getDefault();
